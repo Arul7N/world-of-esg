@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none">
+  <!-- Globe mark (white/light version for dark backgrounds) -->
+  <circle cx="24" cy="24" r="20" fill="white" opacity="0.08"/>
+  <circle cx="24" cy="24" r="20" fill="none" stroke="white" stroke-width="1.2" opacity="0.35"/>
+  <circle cx="24" cy="24" r="11" fill="none" stroke="white" stroke-width="1" opacity="0.25"/>
+  <line x1="4" y1="24" x2="44" y2="24" stroke="white" stroke-width="0.8" opacity="0.3"/>
+  <path d="M24 4 C18 9, 18 39, 24 44" fill="none" stroke="white" stroke-width="0.9" opacity="0.4"/>
+  <path d="M24 4 C30 9, 30 39, 24 44" fill="none" stroke="white" stroke-width="0.9" opacity="0.4"/>
+  <!-- Triangle leaf -->
+  <path d="M24 11 L33 29 L15 29 Z" fill="white" opacity="0.9"/>
+  <circle cx="24" cy="24" r="4" fill="#5BE38B"/>
+
+  <!-- Wordmark (white) -->
+  <text x="56" y="18" font-family="Inter Tight, Inter, sans-serif" font-weight="800" font-size="15" letter-spacing="-0.5" fill="white">World of ESG</text>
+  <text x="56" y="34" font-family="Inter, sans-serif" font-weight="500" font-size="9.5" letter-spacing="1.5" fill="white" opacity="0.6">CLIMATE INTELLIGENCE</text>
+</svg>

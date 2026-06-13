@@ -9,7 +9,14 @@
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5" data-reveal>
         <article v-for="member in members" :key="member.name" class="portrait group" :style="`background:${member.background}`">
-          <div class="portrait-mono" aria-hidden="true">
+          <img
+            v-if="member.photo && !member.photoError"
+            :src="member.photo"
+            :alt="member.name"
+            class="portrait-photo"
+            @error="member.photoError = true"
+          />
+          <div class="portrait-mono" :class="{ 'has-photo': member.photo && !member.photoError }" aria-hidden="true">
             <span class="font-serif-q">{{ member.initials }}</span>
           </div>
           <div class="portrait-meta">
@@ -26,10 +33,31 @@
 </template>
 
 <script setup lang="ts">
-const members = [
-  { name: 'Arjun Mehta', role: 'Founder & CEO', initials: 'AM', linkedIn: '#', background: 'linear-gradient(165deg,#0F3A27,#1D6B43)', roleColor: '#5BE38B' },
-  { name: 'Priya Nair', role: 'Head of ESG Strategy', initials: 'PN', linkedIn: '#', background: 'linear-gradient(165deg,#0E2348,#3447B8)', roleColor: '#A9BCF5' },
-  { name: 'Ravi Krishnaswamy', role: 'Chief Technology Officer', initials: 'RK', linkedIn: '#', background: 'linear-gradient(165deg,#2A1150,#55309A)', roleColor: '#CBB7F2' },
-  { name: 'Kavya Reddy', role: 'Head of Capability Building', initials: 'KR', linkedIn: '#', background: 'linear-gradient(165deg,#103A28,#117C50)', roleColor: '#5BE38B' }
-]
+import { reactive } from 'vue'
+
+const members = reactive([
+  { name: 'Arjun Mehta',       role: 'Founder & CEO',              initials: 'AM', photo: '/images/team/team-1.jpg', photoError: false, linkedIn: '#', background: 'linear-gradient(165deg,#0F3A27,#1D6B43)', roleColor: '#5BE38B' },
+  { name: 'Priya Nair',        role: 'Head of ESG Strategy',       initials: 'PN', photo: '/images/team/team-2.jpg', photoError: false, linkedIn: '#', background: 'linear-gradient(165deg,#0E2348,#3447B8)', roleColor: '#A9BCF5' },
+  { name: 'Ravi Krishnaswamy', role: 'Chief Technology Officer',   initials: 'RK', photo: '/images/team/team-3.jpg', photoError: false, linkedIn: '#', background: 'linear-gradient(165deg,#2A1150,#55309A)', roleColor: '#CBB7F2' },
+  { name: 'Kavya Reddy',       role: 'Head of Capability Building',initials: 'KR', photo: '/images/team/team-4.jpg', photoError: false, linkedIn: '#', background: 'linear-gradient(165deg,#103A28,#117C50)', roleColor: '#5BE38B' },
+])
 </script>
+
+<style scoped>
+.portrait-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.72;
+  transition: opacity 0.35s ease;
+}
+.portrait:hover .portrait-photo { opacity: 0.88; }
+
+.portrait-mono.has-photo {
+  opacity: 0;
+  pointer-events: none;
+}
+</style>

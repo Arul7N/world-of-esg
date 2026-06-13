@@ -3,18 +3,58 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <!-- Preloader -->
-    <div v-if="isLoading" id="preloader" class="preloader" aria-hidden="true">
-      <svg viewBox="0 0 128 120" class="pre-logo-svg" aria-hidden="true"><use href="#i-logo"/></svg>
-      <div class="pre-mask">
-        <span class="pre-inner" id="preInner">World of <em>ESG</em></span>
+    <Transition name="pre-exit">
+      <div v-if="isLoading" id="preloader" class="preloader" aria-hidden="true">
+        <!-- Floating ambient particles -->
+        <div class="pre-particles" aria-hidden="true">
+          <span v-for="n in 9" :key="n" class="pre-dot" :style="`--i:${n}`"></span>
+        </div>
+
+        <!-- Circular progress ring + logo -->
+        <div class="pre-mark">
+          <svg class="pre-ring-svg" viewBox="0 0 120 120" fill="none">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1D6B43"/>
+                <stop offset="55%" stop-color="#2FA66A"/>
+                <stop offset="100%" stop-color="#5BE38B"/>
+              </linearGradient>
+            </defs>
+            <!-- Track -->
+            <circle cx="60" cy="60" r="52" stroke="rgba(29,107,67,0.10)" stroke-width="2.5"/>
+            <!-- Progress arc -->
+            <circle id="preRing" cx="60" cy="60" r="52"
+              stroke="url(#ringGrad)" stroke-width="2.5" stroke-linecap="round"
+              stroke-dasharray="326.73" stroke-dashoffset="326.73"
+              transform="rotate(-90 60 60)"
+            />
+          </svg>
+          <!-- Logo mark inside ring -->
+          <div class="pre-logo-wrap">
+            <svg viewBox="0 0 128 120" class="pre-logo-inner" aria-hidden="true"><use href="#i-logo"/></svg>
+          </div>
+          <!-- Completion checkmark (appears at 100%) -->
+          <div class="pre-check" id="preCheck" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1D6B43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Brand name -->
+        <div class="pre-text">
+          <div class="pre-mask">
+            <span class="pre-inner">World of <em>ESG</em></span>
+          </div>
+          <div class="pre-sub-mask">
+            <span class="pre-sub">Climate Intelligence</span>
+          </div>
+        </div>
+
+        <!-- Counter -->
+        <div class="pre-pct"><span id="prePct">{{ loadingProgress }}</span>%</div>
       </div>
-      <div class="pre-line">
-        <span class="pre-fill" id="preFill"></span>
-      </div>
-      <div class="pre-pct">
-        <span id="prePct">{{ loadingProgress }}</span>%
-      </div>
-    </div>
+    </Transition>
 
     <!-- Grain -->
     <div class="grain" aria-hidden="true" />
@@ -94,23 +134,14 @@ async function runPreloader() {
 
   if (seen || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return
 
-  const inner = document.getElementById('preInner')
-  const fill = document.getElementById('preFill')
+  const ring = document.getElementById('preRing') as SVGCircleElement | null
   const pct = document.getElementById('prePct')
-
-  if (inner) {
-    requestAnimationFrame(() => {
-      inner.style.transition = 'transform .8s cubic-bezier(.16,1,.3,1)'
-      inner.style.transform = 'translateY(0)'
-    })
-  }
-  if (pct) {
-    setTimeout(() => { pct.style.transition = 'opacity .5s'; pct.style.opacity = '1' }, 300)
-  }
+  const check = document.getElementById('preCheck')
+  const CIRC = 326.73
 
   await new Promise<void>(resolve => {
     const t0 = performance.now()
-    const HARD = t0 + 2200
+    const HARD = t0 + 2400
     let loadAt: number | null = document.readyState === 'complete' ? t0 : null
     if (!loadAt) window.addEventListener('load', () => { loadAt = performance.now() }, { once: true })
 
@@ -120,14 +151,19 @@ async function runPreloader() {
       const soft = loadAt ? Math.min(1, (now - loadAt) / 600) : 0
       const p = Math.round(Math.min(1, Math.max(hard, soft * 0.9)) * 100)
       loadingProgress.value = p
-      if (fill) fill.style.width = p + '%'
-      if (p >= 100) { resolve(); return }
+      if (ring) ring.style.strokeDashoffset = String(CIRC * (1 - p / 100))
+      if (p >= 100) {
+        if (check) check.classList.add('show')
+        resolve()
+        return
+      }
       requestAnimationFrame(tick)
     }
     requestAnimationFrame(tick)
   })
 
-  await new Promise(r => setTimeout(r, 180))
+  // Brief pause to let the check animation play
+  await new Promise(r => setTimeout(r, 420))
 }
 
 function initLenis() {
@@ -297,26 +333,109 @@ function initCustomCursor() {
 </script>
 
 <style>
+/* ─── Preloader ─────────────────────────────────────────────── */
 .preloader {
   position: fixed; inset: 0; z-index: 10000;
-  background: linear-gradient(180deg, #FAFBF9, #EFF2EC);
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  background: linear-gradient(160deg, #FAFBF9 0%, #EFF2EC 55%, #E8EFE9 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
 }
-.pre-logo-svg { width: 46px; height: 46px; opacity: 0; transform: scale(0.8); }
+
+/* Iris-close exit via Vue <Transition name="pre-exit"> */
+.pre-exit-leave-active {
+  transition: clip-path 0.65s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.4s ease;
+  pointer-events: none;
+}
+.pre-exit-leave-to {
+  clip-path: circle(0% at 50% 50%);
+  opacity: 0;
+}
+
+/* ── Ambient floating particles */
+.pre-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.pre-dot {
+  position: absolute;
+  width: calc(3px + (var(--i) * 1.5px));
+  height: calc(3px + (var(--i) * 1.5px));
+  border-radius: 50%;
+  background: radial-gradient(circle, #5BE38B, #2FA66A);
+  opacity: 0;
+  animation: preFloat calc(2.8s + var(--i) * 0.35s) ease-in-out calc(var(--i) * 0.18s) infinite;
+  left: calc(8% + (var(--i) - 1) * 10.5%);
+  top: calc(15% + ((var(--i) - 1) % 4) * 22%);
+}
+@keyframes preFloat {
+  0%   { opacity: 0; transform: translateY(0) scale(0.4); }
+  25%  { opacity: 0.45; transform: translateY(-14px) scale(1); }
+  75%  { opacity: 0.25; transform: translateY(-34px) scale(0.7); }
+  100% { opacity: 0; transform: translateY(-54px) scale(0.3); }
+}
+
+/* ── Ring + logo mark */
+.pre-mark {
+  position: relative; width: 120px; height: 120px;
+  animation: preFadeIn 0.5s ease 0.05s both;
+}
+.pre-ring-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+#preRing { transition: stroke-dashoffset 0.08s linear; }
+.pre-logo-wrap {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  animation: preLogoPop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s both;
+}
+.pre-logo-inner { width: 58px; height: 54px; }
+@keyframes preLogoPop {
+  from { opacity: 0; transform: scale(0.55); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* Completion checkmark (fades in at 100%) */
+.pre-check {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+.pre-check.show { opacity: 1; transform: scale(1); }
+.pre-check svg { width: 28px; height: 28px; }
+
+/* ── Brand text */
+.pre-text {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+  animation: preFadeIn 0.4s ease 0.1s both;
+}
 .pre-mask { overflow: hidden; display: block; }
+.pre-sub-mask { overflow: hidden; display: block; }
 .pre-inner {
-  display: block; transform: translateY(115%);
+  display: block;
+  transform: translateY(115%);
+  animation: preMaskUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
   font-family: 'Inter Tight', sans-serif; font-weight: 800; letter-spacing: -0.04em;
-  font-size: clamp(30px, 7vw, 66px); line-height: 1; color: #243128;
+  font-size: clamp(28px, 6.5vw, 62px); line-height: 1; color: #243128;
 }
 .pre-inner em {
   font-style: normal;
-  background: linear-gradient(100deg, #1D6B43, #2FA66A 55%, #5BE38B);
+  background: linear-gradient(100deg, #1D6B43, #2FA66A 50%, #5BE38B);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.pre-line { width: 200px; height: 2px; background: rgba(36,49,40,0.1); border-radius: 2px; overflow: hidden; }
-.pre-fill { display: block; height: 100%; width: 0%; background: linear-gradient(90deg,#1D6B43,#5BE38B); border-radius: 2px; }
-.pre-pct { font-family: 'Inter Tight', sans-serif; font-size: 12px; letter-spacing: 0.12em; color: #465348; opacity: 0; }
+.pre-sub {
+  display: block;
+  transform: translateY(100%);
+  animation: preMaskUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.58s both;
+  font-family: 'Inter Tight', sans-serif; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase; font-size: 10.5px;
+  color: #465348; opacity: 0.6;
+}
+@keyframes preMaskUp { to { transform: translateY(0); } }
+@keyframes preFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── Percentage counter */
+.pre-pct {
+  font-family: 'Inter Tight', sans-serif; font-size: 11.5px; letter-spacing: 0.14em;
+  color: #465348; opacity: 0;
+  animation: preFadeIn 0.5s ease 0.5s both;
+}
 
 #cur {
   position: fixed; top: 0; left: 0; width: 34px; height: 34px;
