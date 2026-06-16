@@ -8,7 +8,7 @@
       :aria-hidden="!navStore.isChatOpen"
     >
       <div class="chat-head">
-        <svg viewBox="0 0 128 120" class="w-7 h-7 shrink-0" aria-hidden="true"><use href="#i-logo" /></svg>
+        <img src="/images/logo/logo.png" class="w-7 h-7 shrink-0 object-contain" alt="" aria-hidden="true" />
         <div class="flex-1 min-w-0">
           <strong class="font-display block text-[14.5px]">ESG Assistant</strong>
           <span class="text-[11px] opacity-75">Typically replies in minutes</span>

@@ -12,7 +12,7 @@
       <div class="book-card">
         <div class="flex items-start justify-between gap-5 mb-8">
           <div class="flex items-center gap-3">
-            <BaseIcon name="logo" size="2.25rem" />
+            <img src="/images/logo/logo.png" style="width:2.25rem;height:2.25rem" class="object-contain shrink-0" alt="" />
             <div>
               <h3 class="font-display font-bold text-2xl text-charcoal leading-tight">Book a Call</h3>
               <p class="text-graphite text-sm">30 minutes with an ESG specialist — pick a slot in the next 7 days.</p>

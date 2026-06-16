@@ -4,7 +4,7 @@
       <div class="grid lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-12 mb-16">
         <div>
           <a href="#home" class="flex items-center gap-3 mb-6">
-            <svg viewBox="0 0 128 120" class="w-9 h-8" aria-hidden="true"><use href="#i-logo"/></svg>
+            <img src="/images/logo/logo.png" class="w-9 h-9 object-contain" alt="" aria-hidden="true" />
             <span class="font-display font-bold text-lg">World of ESG</span>
           </a>
           <p class="text-white/75 leading-relaxed max-w-xs mb-6">Climate Intelligence for Sustainable Growth — strategy, technology, talent, and execution in one ecosystem.</p>

@@ -31,7 +31,7 @@
           </svg>
           <!-- Logo mark inside ring -->
           <div class="pre-logo-wrap">
-            <svg viewBox="0 0 128 120" class="pre-logo-inner" aria-hidden="true"><use href="#i-logo"/></svg>
+            <img src="/images/logo/logo.png" class="pre-logo-inner" alt="" aria-hidden="true" />
           </div>
           <!-- Completion checkmark (appears at 100%) -->
           <div class="pre-check" id="preCheck" aria-hidden="true">

@@ -6,7 +6,7 @@
     <nav class="max-w-[1380px] mx-auto flex items-center justify-between" aria-label="Primary">
       <!-- Logo -->
       <router-link to="/" class="flex items-center gap-3" aria-label="World of ESG home">
-        <BaseIcon name="logo" size="2.5rem" />
+        <img src="/images/logo/logo.png" style="width:2.5rem;height:2.5rem" class="object-contain" alt="World of ESG" />
         <span class="font-display font-bold text-[19px] leading-none tracking-tight text-charcoal">
           World&nbsp;of&nbsp;ESG
         </span>

@@ -17,7 +17,7 @@
         </article>
       </div>
       <div class="glass-card rounded-3xl p-8 md:p-10 text-center">
-        <svg viewBox="0 0 128 120" class="w-14 mx-auto mb-5" aria-hidden="true"><use href="#i-logo"/></svg>
+        <img src="/images/logo/logo.png" class="w-14 mx-auto mb-5 object-contain" alt="" aria-hidden="true" />
         <p class="font-serif-q text-charcoal/75 text-xl leading-relaxed mb-6 max-w-2xl mx-auto">Interested in building something together? Whether you're a university, a registry, a technology provider, or a market network — we're open to collaborations that advance real climate outcomes.</p>
         <a href="mailto:hello@worldofesg.in?subject=Partnership%20Enquiry" class="mag inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-aurora text-charcoal font-display font-semibold hover:-translate-y-1 transition-transform duration-300">
           <svg class="icon" style="width:1.05em;height:1.05em"><use href="#i-mail"/></svg> Explore a Partnership

@@ -3,10 +3,7 @@
     <defs>
       <!-- Logo -->
       <symbol id="i-logo" viewBox="0 0 128 120">
-        <circle cx="64" cy="60" r="50" fill="#1D6B43" opacity="0.1" />
-        <circle cx="64" cy="60" r="30" fill="#2FA66A" opacity="0.3" />
-        <circle cx="64" cy="60" r="15" fill="#5BE38B" />
-        <path d="M64 30 L94 75 L34 75 Z" fill="#1D6B43" />
+        <image href="/images/logo/logo.png" x="0" y="0" width="128" height="120" preserveAspectRatio="xMidYMid meet"/>
       </symbol>
       
       <!-- Navigation & UI Icons -->
