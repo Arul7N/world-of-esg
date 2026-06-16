@@ -120,6 +120,11 @@ onMounted(async () => {
   if (!isMobile.value) {
     initCustomCursor()
   }
+
+  // iOS Safari: address bar appears/hides on scroll, shifting the viewport height.
+  // Refresh ScrollTrigger after the page settles so all trigger positions recalculate.
+  setTimeout(() => ScrollTrigger.refresh(), 500)
+  window.addEventListener('resize', () => ScrollTrigger.refresh(), { passive: true })
 })
 
 async function runPreloader() {
@@ -156,6 +161,9 @@ async function runPreloader() {
 function initLenis() {
   const lenis = new Lenis({ lerp: 0.085, smoothWheel: true })
   lenis.on('scroll', ScrollTrigger.update)
+  // iOS: Lenis uses native touch scroll (smoothTouch:false), so its emitter
+  // won't fire. Add a native listener so ScrollTrigger always gets updates.
+  window.addEventListener('scroll', () => ScrollTrigger.update(), { passive: true })
   gsap.ticker.add(time => lenis.raf(time * 1000))
   gsap.ticker.lagSmoothing(0)
 }
@@ -220,12 +228,20 @@ function initManifesto() {
   const text = document.getElementById('manifesto-text')
   if (!text) return
 
+  if (isMobile.value) {
+    // Mobile: skip the ScrollTrigger pin — GSAP pinning uses position:fixed which
+    // causes layout chaos on iOS Safari. Just light all words immediately.
+    text.querySelectorAll<HTMLElement>('.w').forEach(s => s.classList.add('lit'))
+    return
+  }
+
   ScrollTrigger.create({
     trigger: '#manifesto',
     start: 'top top',
     end: '+=100%',
     pin: true,
     pinSpacing: true,
+    anticipatePin: 1,
     onUpdate(self) {
       const spans = text.querySelectorAll<HTMLElement>('.w')
       const total = spans.length

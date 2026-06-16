@@ -58,36 +58,38 @@
       </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div 
-      class="menu-overlay lg:hidden"
-      :class="{ 'open': navigationStore.isMenuOpen }"
-      role="dialog" 
-      aria-modal="true" 
-      aria-label="Menu"
-    >
-      <div class="h-full flex flex-col justify-center px-8 gap-1">
-        <a
-          v-for="(item, index) in NAV_ITEMS.slice(1)"
-          :key="item.name"
-          :href="item.href"
-          class="menu-item font-display text-4xl font-bold py-3 text-charcoal"
-          :style="{ 'transition-delay': `${(index + 1) * 0.08}s` }"
-          @click="handleMobileNavClick"
-        >
-          {{ item.name }}
-        </a>
-        
-        <BaseButton
-          variant="primary"
-          class="menu-item w-max mt-6"
-          :style="{ 'transition-delay': '0.50s' }"
-          @click="handleBookingClick"
-        >
-          Book a Call
-        </BaseButton>
+    <!-- Mobile Menu Overlay — Teleported to body to escape header's backdrop-filter stacking context (iOS fix) -->
+    <Teleport to="body">
+      <div
+        class="menu-overlay lg:hidden"
+        :class="{ 'open': navigationStore.isMenuOpen }"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+      >
+        <div class="h-full flex flex-col justify-center px-8 gap-1">
+          <a
+            v-for="(item, index) in NAV_ITEMS.slice(1)"
+            :key="item.name"
+            :href="item.href"
+            class="menu-item font-display text-4xl font-bold py-3 text-charcoal"
+            :style="{ 'transition-delay': `${(index + 1) * 0.08}s` }"
+            @click="handleMobileNavClick"
+          >
+            {{ item.name }}
+          </a>
+
+          <BaseButton
+            variant="primary"
+            class="menu-item w-max mt-6"
+            :style="{ 'transition-delay': '0.50s' }"
+            @click="handleBookingClick"
+          >
+            Book a Call
+          </BaseButton>
+        </div>
       </div>
-    </div>
+    </Teleport>
   </header>
 </template>
 

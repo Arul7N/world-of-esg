@@ -207,12 +207,17 @@ body::before {
 .menu-overlay {
   position: fixed;
   inset: 0;
+  /* Use dynamic viewport height so iOS URL-bar show/hide doesn't cut the overlay */
+  height: 100vh;
+  height: 100dvh;
   z-index: 120;
   background: rgba(248, 246, 240, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   clip-path: circle(0% at 100% 0%);
   visibility: hidden;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s linear 0.7s;
 }
 
@@ -566,37 +571,6 @@ input:focus-visible {
     display: none !important;
   }
 }
-/* Navigation Scroll Effect */
-.nav-shell {
-  transition: background 0.4s, box-shadow 0.4s, border-color 0.4s;
-  border-bottom: 1px solid transparent;
-}
-
-.nav-shell.scrolled {
-  background: rgba(248, 246, 240, 0.7);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border-bottom: 1px solid rgba(155, 199, 164, 0.35);
-}
-
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  height: 1.5px;
-  width: 0;
-  background: var(--forest);
-  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
 
 .nav-link.active {
   color: var(--forest);
@@ -625,25 +599,6 @@ input:focus-visible {
   height: 1.5px;
   background: var(--forest);
   display: inline-block;
-}
-
-/* Mobile Menu Animation */
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 120;
-  background: rgba(248, 246, 240, 0.97);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  clip-path: circle(0% at 100% 0%);
-  visibility: hidden;
-  transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s linear 0.7s;
-}
-
-.menu-overlay.open {
-  clip-path: circle(150% at 100% 0%);
-  visibility: visible;
-  transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .menu-item {

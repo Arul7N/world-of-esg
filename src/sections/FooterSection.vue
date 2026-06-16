@@ -8,11 +8,6 @@
             <span class="font-display font-bold text-lg">World of ESG</span>
           </a>
           <p class="text-white/75 leading-relaxed max-w-xs mb-6">Climate Intelligence for Sustainable Growth — strategy, technology, talent, and execution in one ecosystem.</p>
-          <div class="flex gap-3 text-white/70">
-            <a href="#" aria-label="LinkedIn" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center hover:bg-white/10 hover:text-white transition-colors">
-              <svg class="icon" style="width:1.1em;height:1.1em"><use href="#i-linkedin"/></svg>
-            </a>
-          </div>
         </div>
         <div>
           <h3 class="font-display font-semibold text-white/60 text-sm tracking-[0.16em] uppercase mb-5">Company</h3>
