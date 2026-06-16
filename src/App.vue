@@ -33,12 +33,6 @@
           <div class="pre-logo-wrap">
             <img src="/images/logo/logo.png" class="pre-logo-inner" alt="" aria-hidden="true" />
           </div>
-          <!-- Completion checkmark (appears at 100%) -->
-          <div class="pre-check" id="preCheck" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#1D6B43" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 6 9 17l-5-5"/>
-            </svg>
-          </div>
         </div>
 
         <!-- Brand name -->
@@ -135,8 +129,6 @@ async function runPreloader() {
   if (seen || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return
 
   const ring = document.getElementById('preRing') as SVGCircleElement | null
-  const pct = document.getElementById('prePct')
-  const check = document.getElementById('preCheck')
   const CIRC = 326.73
 
   await new Promise<void>(resolve => {
@@ -152,18 +144,13 @@ async function runPreloader() {
       const p = Math.round(Math.min(1, Math.max(hard, soft * 0.9)) * 100)
       loadingProgress.value = p
       if (ring) ring.style.strokeDashoffset = String(CIRC * (1 - p / 100))
-      if (p >= 100) {
-        if (check) check.classList.add('show')
-        resolve()
-        return
-      }
+      if (p >= 100) { resolve(); return }
       requestAnimationFrame(tick)
     }
     requestAnimationFrame(tick)
   })
 
-  // Brief pause to let the check animation play
-  await new Promise(r => setTimeout(r, 420))
+  await new Promise(r => setTimeout(r, 200))
 }
 
 function initLenis() {
@@ -389,16 +376,6 @@ function initCustomCursor() {
   from { opacity: 0; transform: scale(0.55); }
   to   { opacity: 1; transform: scale(1); }
 }
-
-/* Completion checkmark (fades in at 100%) */
-.pre-check {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(0.6);
-  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-}
-.pre-check.show { opacity: 1; transform: scale(1); }
-.pre-check svg { width: 28px; height: 28px; }
 
 /* ── Brand text */
 .pre-text {

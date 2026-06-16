@@ -12,9 +12,6 @@
             <a href="#" aria-label="LinkedIn" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center hover:bg-white/10 hover:text-white transition-colors">
               <svg class="icon" style="width:1.1em;height:1.1em"><use href="#i-linkedin"/></svg>
             </a>
-            <a href="https://www.youtube.com/@WorldofESG" target="_blank" rel="noopener" aria-label="YouTube" class="w-10 h-10 rounded-full border border-white/15 grid place-items-center hover:bg-white/10 hover:text-white transition-colors">
-              <svg class="icon" style="width:1.1em;height:1.1em"><use href="#i-youtube"/></svg>
-            </a>
           </div>
         </div>
         <div>
@@ -24,7 +21,6 @@
             <li><a href="#solutions" class="footer-link inline-block">Services</a></li>
             <li><a href="#impact" class="footer-link inline-block">Impact</a></li>
             <li><a href="#market" class="footer-link inline-block">Market</a></li>
-            <li><a href="#team" class="footer-link inline-block">Team</a></li>
           </ul>
         </div>
         <div>

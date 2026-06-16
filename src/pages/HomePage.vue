@@ -9,7 +9,7 @@
     <SolutionsSection />
     <ProcessSection />
     <MarketSection />
-    <TeamSection />
+    <!-- <TeamSection /> hidden until team photos are ready -->
     <IndustriesSection />
     <FrameworksSection />
     <ImpactSection />
