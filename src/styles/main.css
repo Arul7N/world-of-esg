@@ -210,7 +210,7 @@ body::before {
   /* Use dynamic viewport height so iOS URL-bar show/hide doesn't cut the overlay */
   height: 100vh;
   height: 100dvh;
-  z-index: 120;
+  z-index: 200; /* above FABs (z-index:120) and booking overlay (z-index:140) */
   background: rgba(248, 246, 240, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

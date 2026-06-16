@@ -1,10 +1,11 @@
 import type { NavItem, SolutionCard, TeamMember, IndustryCard, Framework, PartnerCard, WhyUsItem } from '@/types'
 
+export const APP_VERSION = '1.1.0'
+
 export const NAV_ITEMS: NavItem[] = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
   { name: 'Services', href: '#solutions' },
-  { name: 'Team', href: '#team' },
   { name: 'Industries', href: '#industries' },
   { name: 'Frameworks', href: '#frameworks' },
   { name: 'Impact', href: '#impact' },

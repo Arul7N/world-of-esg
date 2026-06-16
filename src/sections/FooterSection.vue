@@ -49,11 +49,12 @@
       <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-white/60 text-sm">
         <p>© 2027 World of ESG. All rights reserved.</p>
         <p class="hidden lg:block text-white/40 font-display tracking-wide">A next-generation ESG &amp; sustainability company</p>
-        <div class="flex gap-6"></div>
+        <span class="text-white/30 text-[11px] font-display tracking-[0.18em]">v{{ APP_VERSION }}</span>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
+import { APP_VERSION } from '@/constants'
 </script>

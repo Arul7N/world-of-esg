@@ -131,14 +131,16 @@ async function runPreloader() {
   const seen = (() => { try { return !!sessionStorage.getItem('woePre') } catch { return false } })()
   try { sessionStorage.setItem('woePre', '1') } catch { /* ignore */ }
 
-  if (seen || window.matchMedia('(prefers-reduced-motion:reduce)').matches) return
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return
 
   const ring = document.getElementById('preRing') as SVGCircleElement | null
   const CIRC = 326.73
 
   await new Promise<void>(resolve => {
     const t0 = performance.now()
-    const HARD = t0 + 2400
+    // Revisit: fast 600ms preloader so GSAP always has overlay time to initialize.
+    // Skipping entirely caused hero text to stay invisible on page reload.
+    const HARD = t0 + (seen ? 600 : 2400)
     let loadAt: number | null = document.readyState === 'complete' ? t0 : null
     if (!loadAt) window.addEventListener('load', () => { loadAt = performance.now() }, { once: true })
 
@@ -189,7 +191,7 @@ function initReveal() {
   gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach(el => {
     gsap.fromTo(el, { opacity: 0, y: 34 }, {
       opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 82%', toggleActions: 'play none none reverse' }
+      scrollTrigger: { trigger: el, start: 'top 90%', once: true }
     })
   })
 }
