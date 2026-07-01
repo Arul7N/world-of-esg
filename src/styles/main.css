@@ -75,6 +75,11 @@ body::before {
   letter-spacing: 0;
 }
 
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
 /* Utility Classes */
 .text-grad {
   background: linear-gradient(100deg, var(--forest), var(--emerald) 45%, var(--indigo) 88%, var(--violet));

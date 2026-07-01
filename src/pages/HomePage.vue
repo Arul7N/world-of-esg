@@ -2,13 +2,12 @@
   <div class="home-page">
     <HeroSection />
     <MarqueeSection />
-    <AboutSection />
     <VisionMissionSection />
     <ManifestoSection />
+    <AboutSection />
     <ChallengeSection />
     <SolutionsSection />
     <ProcessSection />
-    <MarketSection />
     <!-- <TeamSection /> hidden until team photos are ready -->
     <IndustriesSection />
     <FrameworksSection />
@@ -29,8 +28,7 @@ import ManifestoSection from '@/sections/ManifestoSection.vue'
 import ChallengeSection from '@/sections/ChallengeSection.vue'
 import SolutionsSection from '@/sections/SolutionsSection.vue'
 import ProcessSection from '@/sections/ProcessSection.vue'
-import MarketSection from '@/sections/MarketSection.vue'
-import TeamSection from '@/sections/TeamSection.vue'
+
 import IndustriesSection from '@/sections/IndustriesSection.vue'
 import FrameworksSection from '@/sections/FrameworksSection.vue'
 import ImpactSection from '@/sections/ImpactSection.vue'
