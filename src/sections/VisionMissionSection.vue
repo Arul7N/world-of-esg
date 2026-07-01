@@ -124,21 +124,157 @@
           </svg>
           <h3 class="font-serif-q text-4xl md:text-5xl" style="color: var(--sky)">Values</h3>
         </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+          <!-- Trust -->
           <div
-            class="rounded-2xl p-6"
+            class="rounded-2xl p-5"
             style="
               background: rgba(169, 188, 245, 0.08);
               border: 1px solid rgba(169, 188, 245, 0.16);
             "
           >
             <div
-              class="w-10 h-10 rounded-full flex items-center justify-center mb-4"
+              class="w-9 h-9 rounded-full flex items-center justify-center mb-4"
               style="background: rgba(91, 227, 139, 0.15)"
             >
               <svg
                 viewBox="0 0 24 24"
-                class="w-5 h-5"
+                class="w-4 h-4"
+                fill="none"
+                stroke="#5BE38B"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h4 class="font-display font-bold text-base mb-2" style="color: var(--aurora)">
+              Trust
+            </h4>
+            <p class="text-xs leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
+              We build open and honest relationships. We share information clearly and do exactly
+              what we promise to do.
+            </p>
+          </div>
+
+          <!-- Respect -->
+          <div
+            class="rounded-2xl p-5"
+            style="
+              background: rgba(169, 188, 245, 0.08);
+              border: 1px solid rgba(169, 188, 245, 0.16);
+            "
+          >
+            <div
+              class="w-9 h-9 rounded-full flex items-center justify-center mb-4"
+              style="background: rgba(169, 188, 245, 0.15)"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="w-4 h-4"
+                fill="none"
+                stroke="#A9BCF5"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <h4 class="font-display font-bold text-base mb-2" style="color: var(--sky)">Respect</h4>
+            <p class="text-xs leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
+              We treat everyone as a valuable partner. We listen to new ideas and embrace different
+              backgrounds and opinions.
+            </p>
+          </div>
+
+          <!-- Excellence -->
+          <div
+            class="rounded-2xl p-5"
+            style="
+              background: rgba(169, 188, 245, 0.08);
+              border: 1px solid rgba(169, 188, 245, 0.16);
+            "
+          >
+            <div
+              class="w-9 h-9 rounded-full flex items-center justify-center mb-4"
+              style="background: rgba(91, 227, 139, 0.15)"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="w-4 h-4"
+                fill="none"
+                stroke="#5BE38B"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                />
+              </svg>
+            </div>
+            <h4 class="font-display font-bold text-base mb-2" style="color: var(--aurora)">
+              Excellence
+            </h4>
+            <p class="text-xs leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
+              We always do our best work. We set high goals. We push to make our products better
+              every single day.
+            </p>
+          </div>
+
+          <!-- Leadership -->
+          <div
+            class="rounded-2xl p-5"
+            style="
+              background: rgba(169, 188, 245, 0.08);
+              border: 1px solid rgba(169, 188, 245, 0.16);
+            "
+          >
+            <div
+              class="w-9 h-9 rounded-full flex items-center justify-center mb-4"
+              style="background: rgba(169, 188, 245, 0.15)"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="w-4 h-4"
+                fill="none"
+                stroke="#A9BCF5"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+            </div>
+            <h4 class="font-display font-bold text-base mb-2" style="color: var(--sky)">
+              Leadership
+            </h4>
+            <p class="text-xs leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
+              We empower our team to make good choices. We take bold steps and do not wait for
+              others to show us the way.
+            </p>
+          </div>
+
+          <!-- Responsibility — spans 2 cols on sm so the row of 1 is centered; resets to 1 col on lg -->
+          <div
+            class="rounded-2xl p-5 sm:col-span-2 sm:max-w-[calc(50%-10px)] sm:mx-auto lg:col-span-1 lg:max-w-none lg:mx-0 w-full"
+            style="
+              background: rgba(169, 188, 245, 0.08);
+              border: 1px solid rgba(169, 188, 245, 0.16);
+            "
+          >
+            <div
+              class="w-9 h-9 rounded-full flex items-center justify-center mb-4"
+              style="background: rgba(91, 227, 139, 0.15)"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="w-4 h-4"
                 fill="none"
                 stroke="#5BE38B"
                 stroke-width="2"
@@ -149,107 +285,12 @@
                 <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z" />
               </svg>
             </div>
-            <h4 class="font-display font-bold text-lg mb-2" style="color: var(--aurora)">
-              Integrity
+            <h4 class="font-display font-bold text-base mb-2" style="color: var(--aurora)">
+              Responsibility
             </h4>
-            <p class="text-sm leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
-              Science-based, independently verified, and honest about what's certain and what's not.
-              Our advice is as rigorous as our reporting.
-            </p>
-          </div>
-          <div
-            class="rounded-2xl p-6"
-            style="
-              background: rgba(169, 188, 245, 0.08);
-              border: 1px solid rgba(169, 188, 245, 0.16);
-            "
-          >
-            <div
-              class="w-10 h-10 rounded-full flex items-center justify-center mb-4"
-              style="background: rgba(169, 188, 245, 0.15)"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                class="w-5 h-5"
-                fill="none"
-                stroke="#A9BCF5"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                />
-              </svg>
-            </div>
-            <h4 class="font-display font-bold text-lg mb-2" style="color: var(--sky)">
-              Integration
-            </h4>
-            <p class="text-sm leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
-              Six disciplines, one system. Climate transformation doesn't happen in silos — neither
-              do our solutions.
-            </p>
-          </div>
-          <div
-            class="rounded-2xl p-6"
-            style="
-              background: rgba(169, 188, 245, 0.08);
-              border: 1px solid rgba(169, 188, 245, 0.16);
-            "
-          >
-            <div
-              class="w-10 h-10 rounded-full flex items-center justify-center mb-4"
-              style="background: rgba(91, 227, 139, 0.15)"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                class="w-5 h-5"
-                fill="none"
-                stroke="#5BE38B"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-              </svg>
-            </div>
-            <h4 class="font-display font-bold text-lg mb-2" style="color: var(--aurora)">Impact</h4>
-            <p class="text-sm leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
-              Every engagement starts with a verified baseline and ends with a measurable,
-              reportable outcome — not a presentation deck.
-            </p>
-          </div>
-          <div
-            class="rounded-2xl p-6"
-            style="
-              background: rgba(169, 188, 245, 0.08);
-              border: 1px solid rgba(169, 188, 245, 0.16);
-            "
-          >
-            <div
-              class="w-10 h-10 rounded-full flex items-center justify-center mb-4"
-              style="background: rgba(169, 188, 245, 0.15)"
-            >
-              <svg
-                viewBox="0 0 24 24"
-                class="w-5 h-5"
-                fill="none"
-                stroke="#A9BCF5"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-              </svg>
-            </div>
-            <h4 class="font-display font-bold text-lg mb-2" style="color: var(--sky)">
-              Innovation
-            </h4>
-            <p class="text-sm leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
-              Continuous research and technology development to stay ahead of the climate and
-              regulatory curve — so our clients always are too.
+            <p class="text-xs leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
+              We own our wins and our mistakes. We do not hide from tough problems; instead, we find
+              the answers.
             </p>
           </div>
         </div>
