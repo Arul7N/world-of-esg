@@ -134,15 +134,17 @@ body::before {
 
 /* Navigation */
 .nav-shell {
+  background: rgba(248, 246, 240, 0.96);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   transition: background 0.4s, box-shadow 0.4s, border-color 0.4s;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(155, 199, 164, 0.28);
 }
 
 .nav-shell.scrolled {
-  background: rgba(248, 246, 240, 0.7);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  border-bottom: 1px solid rgba(155, 199, 164, 0.35);
+  background: rgba(248, 246, 240, 0.82);
+  box-shadow: 0 8px 24px rgba(22, 50, 44, 0.06);
+  border-bottom-color: rgba(155, 199, 164, 0.45);
 }
 
 .nav-link {

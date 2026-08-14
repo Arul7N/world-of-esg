@@ -1,60 +1,111 @@
 <template>
-  <footer class="text-white pt-16 pb-10" style="background:linear-gradient(180deg,#16325E 0%,#10304A 45%,#0B2A1E 100%)">
-    <div class="max-w-[1380px] mx-auto px-6 md:px-10">
-      <div class="grid lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] gap-12 mb-16">
+  <footer class="site-footer text-white">
+    <div class="max-w-[1380px] mx-auto px-6 md:px-10 py-16 md:py-24">
+      <div class="grid gap-14 lg:grid-cols-[1.42fr_.82fr_1fr_1.05fr] lg:gap-x-16 xl:gap-x-24">
         <div>
-          <a href="#home" class="flex items-center gap-3 mb-6">
-            <img src="/images/logo/logo.png" class="w-9 h-9 object-contain" alt="" aria-hidden="true" />
-            <span class="font-display font-bold text-lg">World of ESG</span>
+          <a href="#home" class="inline-flex items-center gap-4" aria-label="World of ESG home">
+            <img src="/images/logo/logo.png" class="w-14 h-14 object-contain" alt="" aria-hidden="true" />
+            <span class="font-display text-[clamp(1.8rem,2.6vw,2.45rem)] font-bold tracking-tight">World of ESG</span>
           </a>
-          <p class="text-white/75 leading-relaxed max-w-xs mb-6">Climate Intelligence for Sustainable Growth — strategy, technology, talent, and execution in one ecosystem.</p>
+          <p class="mt-8 max-w-[19rem] text-[1.05rem] leading-[1.75] text-white/80">Enabling organizations to drive sustainable change with data, strategy, and technology.</p>
+          <div class="mt-14">
+            <h3 class="footer-heading">Follow Us On</h3>
+            <a href="https://linkedin.com/company/world-of-esg" target="_blank" rel="noopener" class="footer-linkedin" aria-label="Follow World of ESG on LinkedIn">
+              <svg class="icon icon-fill" style="width:1.55rem;height:1.55rem"><use href="#i-linkedin" /></svg>
+            </a>
+          </div>
         </div>
+
         <div>
-          <h3 class="font-display font-semibold text-white/60 text-sm tracking-[0.16em] uppercase mb-5">Company</h3>
-          <ul class="space-y-3 text-white/80">
-            <li><a href="#about" class="footer-link inline-block">About</a></li>
-            <li><a href="#solutions" class="footer-link inline-block">Services</a></li>
-            <li><a href="#impact" class="footer-link inline-block">Impact</a></li>
-            <li><a href="#market" class="footer-link inline-block">Market</a></li>
-          </ul>
+          <h3 class="footer-heading footer-heading-rule">Company</h3>
+          <nav aria-label="Company links"><ul class="footer-list">
+            <li><a href="#about" @click="handleNavClick">About</a></li>
+            <li><a href="#solutions" @click="handleNavClick">Services</a></li>
+            <li><a href="#impact" @click="handleNavClick">Impact</a></li>
+          </ul></nav>
         </div>
+
         <div>
-          <h3 class="font-display font-semibold text-white/60 text-sm tracking-[0.16em] uppercase mb-5">Solutions</h3>
-          <ul class="space-y-3 text-white/80">
-            <li><a href="#solutions" class="footer-link inline-block">ESG Strategy</a></li>
-            <li><a href="#solutions" class="footer-link inline-block">Carbon Platform</a></li>
-            <li><a href="#solutions" class="footer-link inline-block">Skill Development</a></li>
-            <li><a href="#solutions" class="footer-link inline-block">Decarbonization</a></li>
-            <li><a href="#industries" class="footer-link inline-block">Industries</a></li>
-            <li><a href="#frameworks" class="footer-link inline-block">Frameworks</a></li>
-            <li><a href="#partners" class="footer-link inline-block">Partners</a></li>
-          </ul>
+          <h3 class="footer-heading footer-heading-rule">Solutions</h3>
+          <nav aria-label="Solutions links"><ul class="footer-list">
+            <li><a href="#solutions" @click="handleNavClick">ESG Strategy</a></li>
+            <li><a href="#solutions" @click="handleNavClick">SaaS Platform</a></li>
+            <li><a href="#solutions" @click="handleNavClick">Skill Development</a></li>
+            <li><a href="#solutions" @click="handleNavClick">Decarbonization</a></li>
+            <li><a href="#solutions" @click="handleNavClick">ESG Research</a></li>
+            <li><a href="#solutions" @click="handleNavClick">Legal Aspects of Environment</a></li>
+          </ul></nav>
         </div>
+
         <div>
-          <h3 class="font-display font-semibold text-white/60 text-sm tracking-[0.16em] uppercase mb-5">Get in touch</h3>
-          <ul class="space-y-3.5 text-white/80 text-[15px]">
-            <li>
-              <a href="mailto:hello@worldofesg.in" class="footer-link flex items-center gap-2.5">
-                <svg class="icon shrink-0" style="width:1.05em;height:1.05em"><use href="#i-mail"/></svg>hello@worldofesg.in
-              </a>
-            </li>
-            <li>
-              <a href="tel:+918123019616" class="footer-link flex items-center gap-2.5">
-                <svg class="icon shrink-0" style="width:1.05em;height:1.05em"><use href="#i-phone"/></svg>+91 8123019616
-              </a>
-            </li>
-          </ul>
+          <h3 class="footer-heading footer-heading-rule">Get in touch</h3>
+          <address class="not-italic"><ul class="footer-contact-list">
+            <li><a href="mailto:hello@worldofesg.in"><svg class="icon"><use href="#i-mail" /></svg><span>hello@worldofesg.in</span></a></li>
+            <li><a href="tel:+918123019616"><svg class="icon"><use href="#i-phone" /></svg><span>+91 81230 19616</span></a></li>
+            <li class="footer-address"><svg class="icon"><use href="#i-globe" /></svg><span>#235, 13th Cross<br />Indiranagar<br />Bangalore - 560038<br />Karnataka</span></li>
+          </ul></address>
+          <a href="https://maps.google.com/?q=235+13th+Cross+Indiranagar+Bangalore+560038" target="_blank" rel="noopener" class="footer-map-link">
+            <svg class="icon"><use href="#i-arrow-ur" /></svg><span>View on Map</span>
+          </a>
         </div>
       </div>
-      <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-white/60 text-sm">
-        <p>© 2027 World of ESG. All rights reserved.</p>
-        <p class="hidden lg:block text-white/40 font-display tracking-wide">A next-generation ESG &amp; sustainability company</p>
-        <span class="text-white/30 text-[11px] font-display tracking-[0.18em]">v{{ APP_VERSION }}</span>
+
+      <div class="footer-bottom">
+        <p>© {{ year }} World of ESG. All rights reserved.</p>
+        <nav class="footer-legal" aria-label="Legal links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/cookie-policy">Cookie Policy</a>
+          <a href="/terms-conditions">Terms &amp; Conditions</a>
+        </nav>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { APP_VERSION } from '@/constants'
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
+function scrollTo(target: string) {
+  const el = document.querySelector(target)
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+const handleNavClick = async (event: Event) => {
+  const target = (event.currentTarget as HTMLAnchorElement).getAttribute('href')
+  if (target?.startsWith('#')) {
+    event.preventDefault()
+    const targetElement = document.querySelector(target)
+    if (targetElement) {
+      scrollTo(target)
+    } else {
+      await router.push({ path: '/', hash: target })
+    }
+    try { if (targetElement) history.pushState(null, '', target) } catch (error) { console.warn('History pushState failed:', error) }
+  }
+}
+
+const year = new Date().getFullYear()
 </script>
+
+<style scoped>
+.site-footer { background: radial-gradient(circle at 9% 86%, rgba(25, 151, 100, .22), transparent 28%), radial-gradient(circle at 88% 12%, rgba(37, 100, 168, .13), transparent 31%), linear-gradient(135deg, #071e32 0%, #062536 47%, #062d25 100%); }
+.footer-heading { color: rgba(255,255,255,.98); font-family: 'Inter Tight', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: -.02em; text-transform: uppercase; }
+.footer-heading-rule::after { content: ''; display: block; width: 2.4rem; height: 2px; margin-top: 1.25rem; background: linear-gradient(90deg, var(--aurora), var(--emerald)); }
+.footer-list { display: grid; gap: 1.6rem; margin-top: 2.7rem; color: rgba(255,255,255,.82); font-size: 1.05rem; line-height: 1.45; }
+.footer-list a, .footer-contact-list a, .footer-legal a { color: inherit; text-decoration: none; transition: color .22s ease, transform .22s ease; }
+.footer-list a:hover, .footer-contact-list a:hover, .footer-legal a:hover { color: var(--aurora); }
+.footer-list a:hover { display: inline-block; transform: translateX(4px); }
+.footer-linkedin { width: 4.5rem; height: 4.5rem; display: grid; place-items: center; margin-top: 1.25rem; border: 1px solid rgba(91,227,139,.8); border-radius: .65rem; color: #fff; transition: color .22s ease, background .22s ease, transform .22s ease; }
+.footer-linkedin:hover { color: var(--deep); background: var(--aurora); transform: translateY(-3px); }
+.footer-contact-list { display: grid; gap: 1.9rem; margin-top: 2.7rem; color: rgba(255,255,255,.84); font-size: 1.05rem; line-height: 1.7; }
+.footer-contact-list a, .footer-address, .footer-map-link { display: flex; align-items: flex-start; gap: 1rem; }
+.footer-contact-list .icon, .footer-map-link .icon { flex: 0 0 auto; width: 1.55rem !important; height: 1.55rem !important; margin-top: .22rem; color: var(--aurora); }
+.footer-map-link { width: max-content; margin-top: 2.3rem; color: var(--aurora); font-size: 1.05rem; text-decoration: none; transition: color .22s ease, transform .22s ease; }
+.footer-map-link:hover { color: #fff; transform: translateX(4px); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 5rem; padding-top: 2.75rem; border-top: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.72); font-size: .95rem; }
+.footer-legal { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0; }
+.footer-legal a + a::before { content: ''; display: inline-block; width: 1px; height: 1.1em; margin: 0 1.7rem; vertical-align: -.15em; background: var(--aurora); opacity: .8; }
+@media (max-width: 1023px) { .footer-bottom { margin-top: 4rem; } }
+@media (max-width: 640px) { .footer-list, .footer-contact-list { margin-top: 1.7rem; } .footer-bottom { align-items: flex-start; flex-direction: column; margin-top: 3.5rem; padding-top: 2rem; } .footer-legal { justify-content: flex-start; gap: .85rem 1.25rem; } .footer-legal a + a::before { display: none; } }
+</style>

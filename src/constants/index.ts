@@ -12,12 +12,13 @@ export const APP_VERSION = '1.2.0'
 
 export const NAV_ITEMS: NavItem[] = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
+  { name: 'About', href: '/about' },
   { name: 'Services', href: '#solutions' },
   { name: 'Industries', href: '#industries' },
   { name: 'Frameworks', href: '#frameworks' },
   { name: 'Impact', href: '#impact' },
   { name: 'Partners', href: '#partners' },
+  { name: 'Career', href: '/career' },
 ]
 
 export const SOLUTIONS: SolutionCard[] = [
