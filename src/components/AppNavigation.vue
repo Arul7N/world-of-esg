@@ -1,6 +1,6 @@
 <template>
   <header 
-    class="nav-shell fixed top-0 inset-x-0 z-[100] px-6 md:px-10 py-5"
+    class="nav-shell sticky top-0 inset-x-0 z-[100] px-6 md:px-10 py-4 md:py-5"
     :class="{ 'scrolled': navigationStore.isScrolled }"
   >
     <nav class="max-w-[1380px] mx-auto flex items-center justify-between" aria-label="Primary">
@@ -95,6 +95,7 @@
 
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from 'vue'
+import { useRouter } from 'vue-router'
 import { useNavigationStore } from '@/stores/navigation'
 import { useBookingStore } from '@/stores/booking'
 import { NAV_ITEMS } from '@/constants'
@@ -103,6 +104,7 @@ import BaseButton from './BaseButton.vue'
 
 const navigationStore = useNavigationStore()
 const bookingStore = useBookingStore()
+const router = useRouter()
 
 function scrollTo(target: string) {
   const el = document.querySelector(target)
@@ -113,13 +115,20 @@ const handleScroll = () => {
   navigationStore.setScrolled(window.scrollY > 40)
 }
 
-const handleNavClick = (event: Event) => {
-  event.preventDefault()
+const handleNavClick = async (event: Event) => {
   const target = (event.currentTarget as HTMLAnchorElement).getAttribute('href')
-  if (target) {
-    scrollTo(target)
+  if (target?.startsWith('#')) {
+    event.preventDefault()
+    const targetElement = document.querySelector(target)
+
+    if (targetElement) {
+      scrollTo(target)
+    } else {
+      await router.push({ path: '/', hash: target })
+    }
+
     try {
-      history.pushState(null, '', target)
+      if (targetElement) history.pushState(null, '', target)
     } catch (error) {
       console.warn('History pushState failed:', error)
     }
