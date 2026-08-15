@@ -136,5 +136,5 @@ For Netlify / Vercel, add a rewrite rule so all routes serve `index.html` (SPA r
 
 ## Contact
 
-**World of ESG** — hello@worldofesg.in · +91 8123019616
+**World of ESG Private Limited** — hello@worldofesg.in · +91 8660510402
 [worldofesg.in](https://worldofesg.in) · [YouTube](https://www.youtube.com/@WorldofESG)

@@ -89,14 +89,13 @@
         </div>
       </div>
     </div>
-
   </section>
 </template>
 
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { onMounted, onBeforeUnmount, watch } from 'vue'
 import { useAppStore } from '@/stores/app'
-import { initHeroGlobe } from '@/composables/useGlobe'
+import { initHeroGlobe, type GlobeHandle } from '@/composables/useGlobe'
 
 const appStore = useAppStore()
 const reduceMotion =
@@ -104,29 +103,33 @@ const reduceMotion =
     ? window.matchMedia('(prefers-reduced-motion:reduce)').matches
     : false
 
-let startGlobe: () => void = () => {}
+let globe: GlobeHandle | null = null
 
 onMounted(() => {
   // Canvas is in the DOM now — safe to initialize Three.js
-  startGlobe = initHeroGlobe(reduceMotion)
+  globe = initHeroGlobe(reduceMotion, 'hero-canvas')
 
   // If preloader already done (e.g. return visit where preloader is skipped),
   // fire immediately; otherwise wait for the store signal
   if (appStore.preloaderDone) {
-    startGlobe()
+    globe.start()
   }
+})
+
+onBeforeUnmount(() => {
+  globe?.dispose()
+  globe = null
 })
 
 watch(
   () => appStore.preloaderDone,
   (done) => {
-    if (done) startGlobe()
+    if (done) globe?.start()
   }
 )
 </script>
 
 <style scoped>
-
 .eyebrow {
   font-family: 'Inter Tight', sans-serif;
   font-weight: 600;

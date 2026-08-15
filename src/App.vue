@@ -108,6 +108,7 @@ import BookingModal from '@/components/BookingModal.vue'
 import ChatPanel from '@/components/ChatPanel.vue'
 import FloatingActions from '@/components/FloatingActions.vue'
 import { useAppStore } from '@/stores/app'
+import { setLenis } from '@/composables/useSmoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -117,15 +118,19 @@ const isMobile = ref(false)
 const appStore = useAppStore()
 const route = useRoute()
 
+// Every route gets the same treatment. Previously this bailed out unless the
+// destination was home, so About / Career / the legal pages mounted their
+// [data-reveal] elements with no animation wired up at all.
 watch(
-  () => route.name,
-  async (routeName, previousRouteName) => {
-    if (routeName !== 'home' || previousRouteName === 'home') return
-
+  () => route.path,
+  async () => {
     await nextTick()
-    initReveal()
-    initCounters()
-    ScrollTrigger.refresh()
+    // Let images and fonts settle before ScrollTrigger measures positions.
+    requestAnimationFrame(() => {
+      initReveal()
+      initCounters()
+      ScrollTrigger.refresh()
+    })
   }
 )
 
@@ -214,6 +219,8 @@ async function runPreloader() {
 
 function initLenis() {
   const lenis = new Lenis({ lerp: 0.085, smoothWheel: true })
+  // Share it so nav/footer anchors scroll through Lenis instead of fighting it.
+  setLenis(lenis)
   lenis.on('scroll', ScrollTrigger.update)
   // iOS: Lenis uses native touch scroll (smoothTouch:false), so its emitter
   // won't fire. Add a native listener so ScrollTrigger always gets updates.
@@ -243,37 +250,108 @@ function initNavScroll() {
   window.addEventListener('scroll', onScroll, { passive: true })
 }
 
+// Tracked so route changes can tear the old ones down — re-running init without
+// killing these stacked duplicate tweens on the same elements.
+let revealTweens: gsap.core.Tween[] = []
+let revealTriggers: ScrollTrigger[] = []
+
+function killReveal() {
+  revealTriggers.forEach((t) => t.kill())
+  revealTweens.forEach((t) => t.kill())
+  revealTriggers = []
+  revealTweens = []
+}
+
 function initReveal() {
+  killReveal()
+
   gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((el) => {
-    gsap.fromTo(
+    const tween = gsap.fromTo(
       el,
       { opacity: 0, y: 34 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      }
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', paused: true }
     )
+
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: 'top 92%',
+      end: 'bottom 8%',
+      onEnter: () => tween.play(),
+      // Scrolling back up into a section replays it instead of leaving it static.
+      onEnterBack: () => tween.play(),
+      // Above the viewport: stay revealed, never flash back to hidden.
+      onLeave: () => tween.progress(1),
+      // Fully below the viewport again: re-arm so the next pass animates.
+      onLeaveBack: () => tween.pause(0),
+    })
+
+    // main.css sets [data-reveal] { opacity: 0 }, so anything the triggers don't
+    // reach stays invisible forever. Resolve the initial state explicitly rather
+    // than relying on ScrollTrigger firing onEnter for already-active triggers.
+    const rect = el.getBoundingClientRect()
+    if (rect.bottom < 0) {
+      tween.progress(1) // scrolled past already — show it, don't animate
+    } else if (rect.top < window.innerHeight * 0.92) {
+      tween.play() // in view on arrival — animate in now
+    }
+
+    revealTweens.push(tween)
+    revealTriggers.push(trigger)
   })
 }
 
+let counterTweens: gsap.core.Tween[] = []
+let counterTriggers: ScrollTrigger[] = []
+
+function killCounters() {
+  counterTriggers.forEach((t) => t.kill())
+  counterTweens.forEach((t) => t.kill())
+  counterTriggers = []
+  counterTweens = []
+}
+
 function initCounters() {
+  killCounters()
+
   gsap.utils.toArray<HTMLElement>('.counter').forEach((el) => {
     const target = parseFloat(el.dataset.target || '0')
     const decimals = parseInt(el.dataset.decimals || '0')
     const obj = { value: 0 }
-    gsap.to(obj, {
+    const render = () => {
+      el.textContent = decimals > 0 ? obj.value.toFixed(decimals) : Math.round(obj.value).toString()
+    }
+
+    const tween = gsap.to(obj, {
       value: target,
       duration: 2,
       ease: 'power2.out',
-      onUpdate() {
-        el.textContent =
-          decimals > 0 ? obj.value.toFixed(decimals) : Math.round(obj.value).toString()
-      },
-      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' },
+      paused: true,
+      onUpdate: render,
     })
+
+    const trigger = ScrollTrigger.create({
+      trigger: el,
+      start: 'top 88%',
+      end: 'bottom 8%',
+      onEnter: () => tween.restart(),
+      onEnterBack: () => tween.restart(),
+      onLeaveBack: () => {
+        tween.pause(0)
+        obj.value = 0
+        render()
+      },
+    })
+
+    const rect = el.getBoundingClientRect()
+    if (rect.bottom < 0) {
+      obj.value = target
+      render()
+    } else if (rect.top < window.innerHeight * 0.88) {
+      tween.restart()
+    }
+
+    counterTweens.push(tween)
+    counterTriggers.push(trigger)
   })
 }
 

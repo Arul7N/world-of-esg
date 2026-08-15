@@ -8,24 +8,48 @@
       :aria-hidden="!navStore.isChatOpen"
     >
       <div class="chat-head">
-        <img src="/images/logo/logo.png" class="w-7 h-7 shrink-0 object-contain" alt="" aria-hidden="true" />
+        <img
+          src="/images/logo/logo.png"
+          class="w-7 h-7 shrink-0 object-contain"
+          alt=""
+          aria-hidden="true"
+        />
         <div class="flex-1 min-w-0">
           <strong class="font-display block text-[14.5px]">ESG Assistant</strong>
           <span class="text-[11px] opacity-75">Typically replies in minutes</span>
         </div>
-        <button type="button" class="chat-x" aria-label="Close chat" @click="navStore.closeChat()">&#10005;</button>
+        <button type="button" class="chat-x" aria-label="Close chat" @click="navStore.closeChat()">
+          &#10005;
+        </button>
       </div>
 
       <div class="chat-body" ref="bodyEl">
         <div class="chat-msg">
-          Hi! 👋 I'm the World of ESG assistant. Ask me about CBAM, BRSR, our platform — or book a call.
+          Hi! 👋 I'm the World of ESG assistant. Ask me about CBAM, BRSR, our platform — or book a
+          call.
         </div>
-        <div v-for="(msg, i) in messages" :key="i" class="chat-msg" :class="msg.from === 'user' ? 'chat-msg-user' : ''">
+        <div
+          v-for="(msg, i) in messages"
+          :key="i"
+          class="chat-msg"
+          :class="msg.from === 'user' ? 'chat-msg-user' : ''"
+        >
           {{ msg.text }}
         </div>
         <div class="chat-quick" v-if="messages.length === 0">
-          <button type="button" class="bchip" @click="bookingStore.openBooking(); navStore.closeChat()">Book a call</button>
-          <a class="bchip" href="https://wa.me/918123019616" target="_blank" rel="noopener">WhatsApp us</a>
+          <button
+            type="button"
+            class="bchip"
+            @click="
+              bookingStore.openBooking()
+              navStore.closeChat()
+            "
+          >
+            Book a call
+          </button>
+          <a class="bchip" href="https://wa.me/918660510402" target="_blank" rel="noopener"
+            >WhatsApp us</a
+          >
           <a class="bchip" href="mailto:hello@worldofesg.in">Email us</a>
         </div>
       </div>
@@ -39,7 +63,7 @@
           @keydown.enter.prevent="sendMessage"
         />
         <button type="button" class="chat-send" aria-label="Send" @click="sendMessage">
-          <svg class="icon" style="width:1.1em;height:1.1em"><use href="#i-arrow" /></svg>
+          <svg class="icon" style="width: 1.1em; height: 1.1em"><use href="#i-arrow" /></svg>
         </button>
       </div>
     </div>
@@ -54,7 +78,10 @@ import { useBookingStore } from '@/stores/booking'
 const navStore = useNavigationStore()
 const bookingStore = useBookingStore()
 
-interface Message { from: 'user' | 'bot'; text: string }
+interface Message {
+  from: 'user' | 'bot'
+  text: string
+}
 
 const inputText = ref('')
 const messages = ref<Message[]>([])
@@ -62,8 +89,9 @@ const bodyEl = ref<HTMLElement | null>(null)
 
 const autoReplies: Record<string, string> = {
   cbam: 'CBAM (Carbon Border Adjustment Mechanism) applies to carbon-intensive imports into the EU. We help you calculate and report embedded emissions. Want to book a call to discuss?',
-  brsr: 'BRSR (Business Responsibility and Sustainability Reporting) is mandatory for India\'s top 1000 listed companies. Our platform automates the disclosure process.',
-  platform: 'Our ESG platform covers emissions tracking, framework compliance, reporting automation, and more. Request a demo at platform.worldofesg.in/demo',
+  brsr: "BRSR (Business Responsibility and Sustainability Reporting) is mandatory for India's top 1000 listed companies. Our platform automates the disclosure process.",
+  platform:
+    'Our ESG platform covers emissions tracking, framework compliance, reporting automation, and more. Request a demo at platform.worldofesg.in/demo',
   csrd: 'CSRD (Corporate Sustainability Reporting Directive) mandates detailed sustainability disclosures for large EU companies. We provide gap analysis and reporting templates.',
   net: 'We help companies build science-based net-zero pathways, from baselining to decarbonization roadmaps. Shall I connect you with a specialist?',
   hello: 'Hello! How can I help with your ESG journey today?',
@@ -81,8 +109,10 @@ async function sendMessage() {
 
   // Simple keyword reply
   const lower = text.toLowerCase()
-  const key = Object.keys(autoReplies).find(k => lower.includes(k))
-  const reply = key ? autoReplies[key] : 'Thanks for your message! Our team will get back to you shortly. You can also email us at hello@worldofesg.in or book a call above.'
+  const key = Object.keys(autoReplies).find((k) => lower.includes(k))
+  const reply = key
+    ? autoReplies[key]
+    : 'Thanks for your message! Our team will get back to you shortly. You can also email us at hello@worldofesg.in or book a call above.'
 
   setTimeout(async () => {
     messages.value.push({ from: 'bot', text: reply })
@@ -109,20 +139,25 @@ async function sendMessage() {
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
-  transition: opacity 0.28s, transform 0.28s, visibility 0s 0.28s;
+  transition:
+    opacity 0.28s,
+    transform 0.28s,
+    visibility 0s 0.28s;
 }
 .chat-panel.open {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  transition: opacity 0.28s, transform 0.28s;
+  transition:
+    opacity 0.28s,
+    transform 0.28s;
 }
 .chat-head {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 13px 14px;
-  background: linear-gradient(135deg, #10304A, #22308C);
+  background: linear-gradient(135deg, #10304a, #22308c);
   color: var(--sand);
   border-radius: 18px 18px 0 0;
   flex-shrink: 0;
@@ -139,7 +174,9 @@ async function sendMessage() {
   flex-shrink: 0;
   transition: background 0.2s;
 }
-.chat-x:hover { background: rgba(255,255,255,.22); }
+.chat-x:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
 .chat-body {
   flex: 1;
   overflow-y: auto;
@@ -160,7 +197,7 @@ async function sendMessage() {
   max-width: 92%;
 }
 .chat-msg-user {
-  background: linear-gradient(135deg, #1D6B43, #2FA66A);
+  background: linear-gradient(135deg, #1d6b43, #2fa66a);
   color: #fff;
   border-radius: 14px 14px 4px 14px;
   align-self: flex-end;
@@ -175,14 +212,19 @@ async function sendMessage() {
   border-radius: 12px;
   border: 1.5px solid var(--stone);
   background: #fff;
-  font: 600 12px 'Inter Tight', sans-serif;
+  font:
+    600 12px 'Inter Tight',
+    sans-serif;
   color: var(--graphite);
   cursor: pointer;
   transition: 0.2s;
   text-decoration: none;
   display: inline-block;
 }
-.bchip:hover { border-color: var(--forest); color: var(--forest); }
+.bchip:hover {
+  border-color: var(--forest);
+  color: var(--forest);
+}
 .chat-input {
   display: flex;
   align-items: center;
@@ -196,18 +238,23 @@ async function sendMessage() {
   border: 1px solid var(--stone);
   border-radius: 12px;
   padding: 10px 14px;
-  font: 500 14px Inter, sans-serif;
+  font:
+    500 14px Inter,
+    sans-serif;
   color: var(--charcoal);
   outline: none;
   background: var(--mist);
   transition: border-color 0.2s;
 }
-.chat-input input:focus { border-color: var(--forest); background: #fff; }
+.chat-input input:focus {
+  border-color: var(--forest);
+  background: #fff;
+}
 .chat-send {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1D6B43, #2FA66A);
+  background: linear-gradient(135deg, #1d6b43, #2fa66a);
   border: 0;
   color: #fff;
   display: grid;
@@ -216,7 +263,9 @@ async function sendMessage() {
   flex-shrink: 0;
   transition: transform 0.2s;
 }
-.chat-send:hover { transform: scale(1.08); }
+.chat-send:hover {
+  transform: scale(1.08);
+}
 .icon {
   width: 1.5em;
   height: 1.5em;

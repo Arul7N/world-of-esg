@@ -10,6 +10,15 @@ import type {
 
 export const APP_VERSION = '1.2.0'
 
+/**
+ * Single source of truth for outbound company links.
+ * Open roles are managed entirely on LinkedIn — the site never lists individual
+ * jobs, so a role opening or closing never requires a code change or redeploy.
+ */
+export const LINKEDIN_URL = 'https://www.linkedin.com/company/world-of-esg'
+export const LINKEDIN_JOBS_URL = `${LINKEDIN_URL}/jobs/`
+export const CAREERS_EMAIL = 'careers@worldofesg.in'
+
 export const NAV_ITEMS: NavItem[] = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '/about' },
