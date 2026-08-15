@@ -90,15 +90,6 @@
       </div>
     </div>
 
-    <div class="absolute bottom-7 left-6 md:left-10 z-10 flex items-center gap-3 text-graphite/60">
-      <span class="w-[1px] h-10 bg-graphite/30 relative overflow-hidden">
-        <span
-          class="absolute inset-x-0 top-0 h-3 bg-forest"
-          style="animation: scrollcue 2s ease-in-out infinite"
-        ></span>
-      </span>
-      <span class="text-[11px] tracking-[0.25em] uppercase font-display">Scroll</span>
-    </div>
   </section>
 </template>
 
@@ -135,17 +126,6 @@ watch(
 </script>
 
 <style scoped>
-@keyframes scrollcue {
-  0% {
-    transform: translateY(-12px);
-  }
-  50% {
-    transform: translateY(40px);
-  }
-  100% {
-    transform: translateY(-12px);
-  }
-}
 
 .eyebrow {
   font-family: 'Inter Tight', sans-serif;

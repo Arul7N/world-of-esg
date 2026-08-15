@@ -82,6 +82,7 @@
     <div id="progress" aria-hidden="true" />
 
     <IconSprite />
+    <TopContactBar />
     <AppNavigation />
 
     <main id="main" tabindex="-1">
@@ -95,12 +96,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
 import AppNavigation from '@/components/AppNavigation.vue'
 import IconSprite from '@/components/IconSprite.vue'
+import TopContactBar from '@/components/TopContactBar.vue'
 import BookingModal from '@/components/BookingModal.vue'
 import ChatPanel from '@/components/ChatPanel.vue'
 import FloatingActions from '@/components/FloatingActions.vue'
@@ -112,6 +115,19 @@ const isLoading = ref(true)
 const loadingProgress = ref(0)
 const isMobile = ref(false)
 const appStore = useAppStore()
+const route = useRoute()
+
+watch(
+  () => route.name,
+  async (routeName, previousRouteName) => {
+    if (routeName !== 'home' || previousRouteName === 'home') return
+
+    await nextTick()
+    initReveal()
+    initCounters()
+    ScrollTrigger.refresh()
+  }
+)
 
 onMounted(async () => {
   isMobile.value = window.matchMedia('(max-width: 1024px)').matches
