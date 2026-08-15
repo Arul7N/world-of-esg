@@ -37,16 +37,7 @@
           {{ msg.text }}
         </div>
         <div class="chat-quick" v-if="messages.length === 0">
-          <button
-            type="button"
-            class="bchip"
-            @click="
-              bookingStore.openBooking()
-              navStore.closeChat()
-            "
-          >
-            Book a call
-          </button>
+          <button type="button" class="bchip" @click="bookAndClose">Book a call</button>
           <a class="bchip" href="https://wa.me/918660510402" target="_blank" rel="noopener"
             >WhatsApp us</a
           >
@@ -86,6 +77,14 @@ interface Message {
 const inputText = ref('')
 const messages = ref<Message[]>([])
 const bodyEl = ref<HTMLElement | null>(null)
+
+// Kept as a named handler rather than two statements inline in the template:
+// Prettier reformats multi-statement @click bindings across lines and drops the
+// separating semicolon, which breaks the Vue template compiler at build time.
+function bookAndClose() {
+  bookingStore.openBooking()
+  navStore.closeChat()
+}
 
 const autoReplies: Record<string, string> = {
   cbam: 'CBAM (Carbon Border Adjustment Mechanism) applies to carbon-intensive imports into the EU. We help you calculate and report embedded emissions. Want to book a call to discuss?',
