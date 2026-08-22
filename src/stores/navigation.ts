@@ -43,6 +43,6 @@ export const useNavigationStore = defineStore('navigation', () => {
     setScrolled,
     setActiveSection,
     toggleChat,
-    closeChat
+    closeChat,
   }
 })

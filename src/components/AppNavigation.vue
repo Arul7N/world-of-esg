@@ -118,8 +118,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue'
+import { onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useNavigationStore } from '@/stores/navigation'
 import { useBookingStore } from '@/stores/booking'
 import { NAV_ITEMS } from '@/constants'
@@ -133,6 +134,37 @@ const route = useRoute()
 
 const handleScroll = () => {
   navigationStore.setScrolled(window.scrollY > 40)
+}
+
+// Scroll-spy. `setActiveSection` existed in the store but nothing ever called it,
+// so activeSection stayed 'home' forever and the nav's active underline never
+// moved off Home. Rebuilt on route change because the sections only exist on /.
+let spyTriggers: ScrollTrigger[] = []
+
+const killScrollSpy = () => {
+  spyTriggers.forEach((t) => t.kill())
+  spyTriggers = []
+}
+
+const initScrollSpy = () => {
+  killScrollSpy()
+
+  NAV_ITEMS.filter((item) => item.href.startsWith('#')).forEach((item) => {
+    const id = item.href.slice(1)
+    const el = document.getElementById(id)
+    if (!el) return
+
+    spyTriggers.push(
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 45%',
+        end: 'bottom 45%',
+        onToggle: (self) => {
+          if (self.isActive) navigationStore.setActiveSection(id)
+        },
+      })
+    )
+  })
 }
 
 const handleNavClick = async (event: Event) => {
@@ -171,14 +203,24 @@ const handleKeyDown = (event: KeyboardEvent) => {
   }
 }
 
+watch(
+  () => route.path,
+  async () => {
+    await nextTick()
+    requestAnimationFrame(initScrollSpy)
+  }
+)
+
 onMounted(() => {
   handleScroll()
   window.addEventListener('scroll', handleScroll, { passive: true })
   document.addEventListener('keydown', handleKeyDown)
+  requestAnimationFrame(initScrollSpy)
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('scroll', handleScroll)
   document.removeEventListener('keydown', handleKeyDown)
+  killScrollSpy()
 })
 </script>

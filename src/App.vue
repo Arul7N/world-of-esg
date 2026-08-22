@@ -129,6 +129,19 @@ watch(
     requestAnimationFrame(() => {
       initReveal()
       initCounters()
+
+      // The hero, manifesto and horizontal-scroll sections only exist on home,
+      // and their animations were previously wired up once in onMounted. Coming
+      // back to home remounted them with no animation attached, leaving the hero
+      // headline stuck invisible behind the globe.
+      if (route.name === 'home') {
+        initHeroAnimation()
+        initManifesto()
+        initHorizontalScroll()
+        initGlowCards()
+        initMagneticButtons()
+      }
+
       ScrollTrigger.refresh()
     })
   }
@@ -355,8 +368,19 @@ function initCounters() {
   })
 }
 
+// Home-only animations. These are re-created whenever the home route is
+// (re-)entered, so the tweens and pinned triggers they own must be tracked and
+// killed first — otherwise returning to home stacks duplicates, and the hero
+// text stays stuck at its inline opacity:0 start state.
+let heroTimeline: gsap.core.Timeline | null = null
+let manifestoTrigger: ScrollTrigger | null = null
+let horizontalTrigger: ScrollTrigger | null = null
+
 function initHeroAnimation() {
+  heroTimeline?.kill()
+
   const tl = gsap.timeline({ delay: 0.3 })
+  heroTimeline = tl
   const eyebrow = document.getElementById('heroEyebrow')
   const masks = gsap.utils.toArray<HTMLElement>('.mask-in')
   const quote = document.getElementById('heroQuote')
@@ -377,6 +401,9 @@ function initHeroAnimation() {
 }
 
 function initManifesto() {
+  manifestoTrigger?.kill()
+  manifestoTrigger = null
+
   const text = document.getElementById('manifesto-text')
   if (!text) return
 
@@ -387,7 +414,7 @@ function initManifesto() {
     return
   }
 
-  ScrollTrigger.create({
+  manifestoTrigger = ScrollTrigger.create({
     trigger: '#manifesto',
     start: 'top top',
     end: '+=100%',
@@ -407,6 +434,9 @@ function initManifesto() {
 }
 
 function initHorizontalScroll() {
+  horizontalTrigger?.kill()
+  horizontalTrigger = null
+
   const hWrap = document.getElementById('hWrap')
   const hInner = document.getElementById('hInner')
   if (!hWrap || !hInner) return
@@ -420,7 +450,7 @@ function initHorizontalScroll() {
 
   const getScrollAmount = () => -(hInner.scrollWidth - window.innerWidth)
 
-  ScrollTrigger.create({
+  horizontalTrigger = ScrollTrigger.create({
     trigger: hWrap,
     start: 'top top',
     end: () => `+=${Math.abs(getScrollAmount())}`,

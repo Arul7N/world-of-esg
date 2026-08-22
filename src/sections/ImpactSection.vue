@@ -32,8 +32,8 @@
             of reporting time, reclaimed.
           </p>
           <p class="text-graphite leading-relaxed max-w-md">
-            Pre-built BRSR, GRI, TCFD, GHG Protocol, and CBAM templates, automated data collection, and real-time
-            compliance dashboards eliminate the manual rework.
+            Pre-built BRSR, GRI, TCFD, GHG Protocol, and CBAM templates, automated data collection,
+            and real-time compliance dashboards eliminate the manual rework.
           </p>
         </div>
         <div>

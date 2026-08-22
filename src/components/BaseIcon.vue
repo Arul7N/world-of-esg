@@ -1,6 +1,6 @@
 <template>
-  <svg 
-    class="icon" 
+  <svg
+    class="icon"
     :class="{ 'icon-fill': fill }"
     :style="{ width: size, height: size }"
     viewBox="0 0 24 24"
@@ -19,6 +19,6 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   size: '1.5em',
-  fill: false
+  fill: false,
 })
 </script>

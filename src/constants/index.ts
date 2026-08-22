@@ -18,6 +18,7 @@ export const APP_VERSION = '1.2.0'
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/world-of-esg'
 export const LINKEDIN_JOBS_URL = `${LINKEDIN_URL}/jobs/`
 export const CAREERS_EMAIL = 'careers@worldofesg.in'
+export const CONTACT_EMAIL = 'hello@worldofesg.in'
 
 export const NAV_ITEMS: NavItem[] = [
   { name: 'Home', href: '#home' },

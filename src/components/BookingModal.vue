@@ -1,26 +1,35 @@
 <template>
   <Teleport to="body">
-    <div 
+    <div
       v-if="bookingStore.isOpen"
       class="book-overlay"
-      :class="{ 'open': bookingStore.isOpen }"
-      role="dialog" 
-      aria-modal="true" 
+      :class="{ open: bookingStore.isOpen }"
+      role="dialog"
+      aria-modal="true"
       aria-label="Book a call"
       @click.self="bookingStore.closeBooking"
     >
       <div class="book-card">
         <div class="flex items-start justify-between gap-5 mb-8">
           <div class="flex items-center gap-3">
-            <img src="/images/logo/logo.png" style="width:2.25rem;height:2.25rem" class="object-contain shrink-0" alt="" />
+            <img
+              src="/images/logo/logo.png"
+              style="width: 2.25rem; height: 2.25rem"
+              class="object-contain shrink-0"
+              alt=""
+            />
             <div>
-              <h3 class="font-display font-bold text-2xl text-charcoal leading-tight">Book a Call</h3>
-              <p class="text-graphite text-sm">30 minutes with an ESG specialist — pick a slot in the next 7 days.</p>
+              <h3 class="font-display font-bold text-2xl text-charcoal leading-tight">
+                Book a Call
+              </h3>
+              <p class="text-graphite text-sm">
+                30 minutes with an ESG specialist — pick a slot in the next 7 days.
+              </p>
             </div>
           </div>
-          <button 
-            type="button" 
-            class="book-x" 
+          <button
+            type="button"
+            class="book-x"
             aria-label="Close"
             @click="bookingStore.closeBooking"
           >
@@ -32,36 +41,36 @@
           <div class="grid sm:grid-cols-2 gap-x-5 gap-y-5 mb-6">
             <label class="book-f">
               <span>Full name</span>
-              <input 
+              <input
                 v-model="bookingStore.form.name"
-                type="text" 
-                name="name" 
-                placeholder="Your name" 
-                required 
-              >
+                type="text"
+                name="name"
+                placeholder="Your name"
+                required
+              />
             </label>
-            
+
             <label class="book-f">
               <span>Work email</span>
-              <input 
+              <input
                 v-model="bookingStore.form.email"
-                type="email" 
-                name="email" 
-                placeholder="you@company.com" 
-                required 
-              >
+                type="email"
+                name="email"
+                placeholder="you@company.com"
+                required
+              />
             </label>
-            
+
             <label class="book-f">
               <span>Company</span>
-              <input 
+              <input
                 v-model="bookingStore.form.company"
-                type="text" 
-                name="company" 
-                placeholder="Company name" 
-              >
+                type="text"
+                name="company"
+                placeholder="Company name"
+              />
             </label>
-            
+
             <label class="book-f">
               <span>What do you need?</span>
               <select v-model="bookingStore.form.topic" name="topic">
@@ -82,7 +91,7 @@
               :key="date"
               type="button"
               class="bchip"
-              :class="{ 'on': bookingStore.form.date === date }"
+              :class="{ on: bookingStore.form.date === date }"
               @click="bookingStore.form.date = date"
             >
               {{ formatDate(date) }}
@@ -96,7 +105,7 @@
               :key="time"
               type="button"
               class="bchip"
-              :class="{ 'on': bookingStore.form.time === time }"
+              :class="{ on: bookingStore.form.time === time }"
               @click="bookingStore.form.time = time"
             >
               {{ time }}
@@ -105,38 +114,44 @@
 
           <label class="book-f mb-7 block">
             <span>Anything we should know? <em>(optional)</em></span>
-            <textarea 
+            <textarea
               v-model="bookingStore.form.note"
-              name="note" 
-              rows="2" 
+              name="note"
+              rows="2"
               placeholder="e.g. We export steel to the EU and need CBAM numbers"
             />
           </label>
 
           <div class="flex flex-wrap justify-end gap-4 pt-2 border-t border-stone">
-            <BaseButton
-              variant="ghost"
-              @click="bookingStore.closeBooking"
-            >
-              Close
-            </BaseButton>
-            
-            <BaseButton
-              type="submit"
-              :disabled="bookingStore.isLoading"
-              icon-right="arrow"
-            >
-              {{ bookingStore.isLoading ? 'Submitting...' : 'Submit request' }}
+            <BaseButton variant="ghost" @click="bookingStore.closeBooking"> Close </BaseButton>
+
+            <BaseButton type="submit" :disabled="bookingStore.isLoading" icon-right="arrow">
+              {{ bookingStore.isLoading ? 'Sending...' : 'Send request' }}
             </BaseButton>
           </div>
+
+          <p v-if="bookingStore.errorMessage" class="book-error" role="alert">
+            {{ bookingStore.errorMessage }}
+          </p>
         </form>
 
         <div v-else class="text-center py-10">
-          <div class="w-14 h-14 rounded-full bg-mint grid place-items-center mx-auto mb-4 text-forest">
+          <div
+            class="w-14 h-14 rounded-full bg-mint grid place-items-center mx-auto mb-4 text-forest"
+          >
             <BaseIcon name="check" size="1.6em" />
           </div>
-          <h3 class="font-display font-bold text-2xl text-charcoal mb-2">Request received</h3>
-          <p class="text-graphite max-w-sm mx-auto">We'll confirm your slot by email shortly. You can close this window.</p>
+          <h3 class="font-display font-bold text-2xl text-charcoal mb-2">
+            {{ bookingStore.usedMailFallback ? 'Almost there' : 'Request received' }}
+          </h3>
+          <p v-if="bookingStore.usedMailFallback" class="text-graphite max-w-sm mx-auto">
+            We've opened an email to <strong>{{ CONTACT_EMAIL }}</strong> with your details filled
+            in — press send in your mail app to finish. If nothing opened, email us directly.
+          </p>
+          <p v-else class="text-graphite max-w-sm mx-auto">
+            Your request has been sent to our team. We'll confirm your slot by email shortly — you
+            can close this window.
+          </p>
         </div>
       </div>
     </div>
@@ -145,6 +160,7 @@
 
 <script setup lang="ts">
 import { useBookingStore } from '@/stores/booking'
+import { CONTACT_EMAIL } from '@/constants'
 import BaseIcon from './BaseIcon.vue'
 import BaseButton from './BaseButton.vue'
 
@@ -152,22 +168,31 @@ const bookingStore = useBookingStore()
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
-  return date.toLocaleDateString('en-US', { 
-    weekday: 'short', 
-    month: 'short', 
-    day: 'numeric' 
+  return date.toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
   })
 }
 
 const handleSubmit = async () => {
-  const success = await bookingStore.submitForm()
-  if (!success) {
-    alert('There was an error submitting your request. Please try again.')
-  }
+  // Errors surface inline via bookingStore.errorMessage rather than an alert().
+  await bookingStore.submitForm()
 }
 </script>
 
 <style scoped>
+.book-error {
+  margin-top: 14px;
+  padding: 11px 14px;
+  border: 1px solid rgba(190, 60, 60, 0.35);
+  border-radius: 10px;
+  background: rgba(190, 60, 60, 0.07);
+  color: #9c2b2b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 .book-overlay {
   position: fixed;
   inset: 0;
@@ -180,7 +205,9 @@ const handleSubmit = async () => {
   -webkit-backdrop-filter: blur(6px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s, visibility 0s 0.3s;
+  transition:
+    opacity 0.3s,
+    visibility 0s 0.3s;
 }
 
 .book-overlay.open {
@@ -238,7 +265,9 @@ const handleSubmit = async () => {
 
 .book-f span {
   display: block;
-  font: 600 12.5px 'Inter Tight', sans-serif;
+  font:
+    600 12.5px 'Inter Tight',
+    sans-serif;
   letter-spacing: 0.04em;
   color: var(--graphite);
   margin-bottom: 8px;
@@ -258,10 +287,14 @@ const handleSubmit = async () => {
   border: 1px solid var(--stone);
   border-radius: 14px;
   padding: 14px 16px;
-  font: 500 15px Inter, sans-serif;
+  font:
+    500 15px Inter,
+    sans-serif;
   color: var(--charcoal);
   outline: none;
-  transition: border-color 0.25s, box-shadow 0.25s;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
 }
 
 .book-f input:focus,
@@ -272,7 +305,9 @@ const handleSubmit = async () => {
 }
 
 .book-lab {
-  font: 600 12.5px 'Inter Tight', sans-serif;
+  font:
+    600 12.5px 'Inter Tight',
+    sans-serif;
   letter-spacing: 0.04em;
   color: var(--graphite);
   margin: 18px 0 10px;
@@ -296,7 +331,9 @@ const handleSubmit = async () => {
   border-radius: 13px;
   border: 1.5px solid var(--stone);
   background: #fff;
-  font: 600 13px 'Inter Tight', sans-serif;
+  font:
+    600 13px 'Inter Tight',
+    sans-serif;
   color: var(--graphite);
   cursor: pointer;
   transition: 0.22s;

@@ -3,7 +3,7 @@
     <div class="max-w-[1380px] mx-auto px-6 md:px-10 py-16 md:py-24">
       <div class="grid gap-14 lg:grid-cols-[1.42fr_.82fr_1fr_1.05fr] lg:gap-x-16 xl:gap-x-24">
         <div>
-          <a href="#home" class="inline-flex items-center gap-4" aria-label="World of ESG home">
+          <router-link to="/" class="inline-flex items-center gap-4" aria-label="World of ESG home">
             <img
               src="/images/logo/logo.png"
               class="w-14 h-14 object-contain"
@@ -13,7 +13,7 @@
             <span class="font-display text-[clamp(1.8rem,2.6vw,2.45rem)] font-bold tracking-tight"
               >World of ESG</span
             >
-          </a>
+          </router-link>
           <p class="footer-legal-name">World of ESG Private Limited</p>
           <p class="mt-4 max-w-[19rem] text-[1.05rem] leading-[1.75] text-white/80">
             Enabling organizations to drive sustainable change with data, strategy, and technology.
@@ -21,7 +21,7 @@
           <div class="mt-14">
             <h3 class="footer-heading">Follow Us On</h3>
             <a
-              href="https://linkedin.com/company/world-of-esg"
+              :href="LINKEDIN_URL"
               target="_blank"
               rel="noopener"
               class="footer-linkedin"
@@ -38,7 +38,7 @@
           <h3 class="footer-heading footer-heading-rule">Company</h3>
           <nav aria-label="Company links">
             <ul class="footer-list">
-              <li><a href="#about" @click="handleNavClick">About</a></li>
+              <li><router-link to="/about">About</router-link></li>
               <li><a href="#solutions" @click="handleNavClick">Services</a></li>
               <li><a href="#impact" @click="handleNavClick">Impact</a></li>
             </ul>
@@ -107,6 +107,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { scrollToTarget } from '@/composables/useSmoothScroll'
+import { LINKEDIN_URL } from '@/constants'
 const router = useRouter()
 
 const handleNavClick = async (event: Event) => {

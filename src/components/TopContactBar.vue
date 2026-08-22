@@ -13,18 +13,17 @@
       </div>
 
       <div class="top-contact-socials" aria-label="Follow World of ESG">
-        <a
-          href="https://linkedin.com/company/world-of-esg"
-          target="_blank"
-          rel="noopener"
-          aria-label="Follow us on LinkedIn"
-        >
+        <a :href="LINKEDIN_URL" target="_blank" rel="noopener" aria-label="Follow us on LinkedIn">
           <svg class="icon" style="width: 1em; height: 1em"><use href="#i-linkedin" /></svg>
         </a>
       </div>
     </div>
   </aside>
 </template>
+
+<script setup lang="ts">
+import { LINKEDIN_URL } from '@/constants'
+</script>
 
 <style scoped>
 .top-contact-bar {

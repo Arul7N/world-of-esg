@@ -84,7 +84,7 @@
       </div>
     </section>
 
-    <section class="team-section py-20 md:py-28">
+    <section v-if="showTeamSection" class="team-section py-20 md:py-28">
       <div class="max-w-[1380px] mx-auto px-6 md:px-10">
         <div class="max-w-3xl">
           <span class="eyebrow mb-6">Meet the team</span>
@@ -141,7 +141,7 @@
         </div>
       </div>
     </section>
-    <AwardsSection />
+    <AwardsSection v-if="showRecognitionSection" />
     <FooterSection />
   </div>
 </template>
@@ -151,6 +151,12 @@ import { onMounted, onBeforeUnmount } from 'vue'
 import AwardsSection from '@/sections/AwardsSection.vue'
 import FooterSection from '@/sections/FooterSection.vue'
 import { initHeroGlobe, type GlobeHandle } from '@/composables/useGlobe'
+
+// ── Section visibility flags ──────────────────────────────────────────────
+// Hidden for now, kept in the codebase so they can be switched back on without
+// rewriting anything. Flip either to `true` to publish that section again.
+const showTeamSection = false // "Meet the team"
+const showRecognitionSection = false // "Recognition" / Awards and Recognitions
 
 let globe: GlobeHandle | null = null
 
