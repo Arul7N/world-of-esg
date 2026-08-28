@@ -10,6 +10,7 @@
     "test:e2e": "playwright test",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "format": "prettier --write src/",
+    "logo": "node scripts/generate-logo.mjs",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -39,6 +40,7 @@
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.33",
     "prettier": "^3.2.5",
+    "sharp": "^0.35.4",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
