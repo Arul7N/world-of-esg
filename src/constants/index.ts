@@ -22,7 +22,14 @@ export const CONTACT_EMAIL = 'hello@worldofesg.in'
 
 export const NAV_ITEMS: NavItem[] = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '/about' },
+  {
+    name: 'About',
+    href: '/about',
+    children: [
+      { name: 'About Us', href: '/about' },
+      { name: 'Team', href: '/team' },
+    ],
+  },
   { name: 'Services', href: '#solutions' },
   { name: 'Industries', href: '#industries' },
   { name: 'Frameworks', href: '#frameworks' },

@@ -2,16 +2,16 @@
   <div class="home-page">
     <HeroSection />
     <MarqueeSection />
-    <VisionMissionSection />
     <ManifestoSection />
+    <VisionMissionSection />
     <ChallengeSection />
     <SolutionsSection />
+    <WhyUsSection />
     <ProcessSection />
     <IndustriesSection />
     <FrameworksSection />
     <ImpactSection />
     <PartnersSection />
-    <WhyUsSection />
     <ContactSection />
     <FooterSection />
   </div>

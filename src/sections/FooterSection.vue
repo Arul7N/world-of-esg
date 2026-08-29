@@ -14,8 +14,7 @@
               >World of ESG</span
             >
           </router-link>
-          <p class="footer-legal-name">World of ESG Private Limited</p>
-          <p class="mt-4 max-w-[19rem] text-[1.05rem] leading-[1.75] text-white/80">
+          <p class="mt-8 max-w-[19rem] text-[1.05rem] leading-[1.75] text-white/80">
             Enabling organizations to drive sustainable change with data, strategy, and technology.
           </p>
           <div class="mt-14">
@@ -146,14 +145,6 @@ const year = new Date().getFullYear()
   font-weight: 600;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-}
-.footer-legal-name {
-  margin-top: 2rem;
-  color: rgba(255, 255, 255, 0.95);
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
 }
 .footer-heading-rule::after {
   content: '';

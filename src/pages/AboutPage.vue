@@ -84,63 +84,6 @@
       </div>
     </section>
 
-    <section v-if="showTeamSection" class="team-section py-20 md:py-28">
-      <div class="max-w-[1380px] mx-auto px-6 md:px-10">
-        <div class="max-w-3xl">
-          <span class="eyebrow mb-6">Meet the team</span>
-          <h2
-            class="font-display font-bold text-charcoal text-[clamp(2.35rem,4.5vw,4rem)] leading-[1.02]"
-          >
-            The people advancing your climate transition.
-          </h2>
-          <p class="mt-6 text-graphite text-lg leading-relaxed">
-            Our multidisciplinary team brings ESG strategy, climate science, product thinking,
-            research, and learning design together around one goal: progress that stands up to
-            boards, investors, and regulators.
-          </p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
-          <article
-            v-for="member in team"
-            :key="member.name"
-            class="team-card"
-            :style="{ '--team-color': member.color }"
-          >
-            <div class="team-initials">{{ member.initials }}</div>
-            <div class="p-6">
-              <h3 class="font-display font-bold text-xl text-white">{{ member.name }}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-white/70">{{ member.role }}</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 md:py-28 bg-sand">
-      <div class="max-w-[1380px] mx-auto px-6 md:px-10">
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-7">
-          <div class="max-w-3xl">
-            <span class="eyebrow mb-6">Impact at a Glance</span>
-            <h2
-              class="font-display font-bold text-charcoal text-[clamp(2.35rem,4.5vw,4rem)] leading-[1.02]"
-            >
-              Our milestones and measurable impact.
-            </h2>
-          </div>
-          <p class="max-w-md text-graphite text-lg leading-relaxed">
-            We value the trust of clients, learners, and partners. Our work is measured by the
-            progress it enables—not inflated claims.
-          </p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-5 mt-12">
-          <article v-for="item in recognition" :key="item.title" class="recognition-card">
-            <span class="recognition-number">{{ item.value }}</span>
-            <h3 class="font-display font-bold text-xl text-charcoal mt-7">{{ item.title }}</h3>
-            <p class="text-graphite leading-relaxed mt-3">{{ item.description }}</p>
-          </article>
-        </div>
-      </div>
-    </section>
     <AwardsSection v-if="showRecognitionSection" />
     <FooterSection />
   </div>
@@ -155,7 +98,6 @@ import { initHeroGlobe, type GlobeHandle } from '@/composables/useGlobe'
 // ── Section visibility flags ──────────────────────────────────────────────
 // Hidden for now, kept in the codebase so they can be switched back on without
 // rewriting anything. Flip either to `true` to publish that section again.
-const showTeamSection = false // "Meet the team"
 const showRecognitionSection = false // "Recognition" / Awards and Recognitions
 
 let globe: GlobeHandle | null = null
@@ -180,29 +122,6 @@ const disciplines = [
   'Decarbonization',
   'ESG Research',
   'Environmental Law',
-]
-const team = [
-  { name: 'Arjun Mehta', role: 'Founder & CEO', initials: 'AM', color: '#1D6B43' },
-  { name: 'Priya Nair', role: 'Head of ESG Strategy', initials: 'PN', color: '#3A4DB8' },
-  { name: 'Ravi Krishnaswamy', role: 'Chief Technology Officer', initials: 'RK', color: '#7430A4' },
-  { name: 'Kavya Reddy', role: 'Head of Capability Building', initials: 'KR', color: '#117C50' },
-]
-const recognition = [
-  {
-    value: '500+',
-    title: 'Learners enabled',
-    description: 'Practical sustainability capability building for the people who lead change.',
-  },
-  {
-    value: '20+',
-    title: 'Platform modules',
-    description: 'Connected tools for carbon data, reporting, compliance, and decision-making.',
-  },
-  {
-    value: '6',
-    title: 'Integrated disciplines',
-    description: 'Strategy through execution, working as one reinforcing system.',
-  },
 ]
 </script>
 
@@ -295,45 +214,6 @@ const recognition = [
     600 0.9rem 'Inter Tight',
     sans-serif;
   background: rgba(255, 255, 255, 0.07);
-}
-.team-section {
-  background: linear-gradient(180deg, #f2f6f2, #f8f6f0);
-}
-.team-card {
-  overflow: hidden;
-  border-radius: 1.45rem;
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--team-color) 78%, #06151a),
-    var(--team-color)
-  );
-  box-shadow: 0 22px 42px -30px rgba(8, 20, 27, 0.65);
-}
-.team-initials {
-  display: grid;
-  place-items: center;
-  height: 14rem;
-  color: rgba(255, 255, 255, 0.94);
-  font:
-    3.8rem 'Instrument Serif',
-    serif;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.24), transparent 40%),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 11px);
-}
-.recognition-card {
-  padding: 2rem;
-  border: 1px solid var(--stone);
-  border-radius: 1.4rem;
-  background: #fff;
-  box-shadow: 0 18px 35px -30px rgba(8, 24, 21, 0.35);
-}
-.recognition-number {
-  color: var(--forest);
-  font:
-    800 clamp(2.7rem, 5vw, 4.5rem)/1 'Inter Tight',
-    sans-serif;
-  letter-spacing: -0.06em;
 }
 @media (max-width: 1023px) {
   .about-hero-grid {

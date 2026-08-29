@@ -1,6 +1,8 @@
 export interface NavItem {
   name: string
   href: string
+  /** Renders as a dropdown when present. */
+  children?: { name: string; href: string }[]
 }
 
 export interface SolutionCard {

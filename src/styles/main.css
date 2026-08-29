@@ -1541,3 +1541,73 @@ input:focus-visible {
     stroke-dashoffset: -24;
   }
 }
+
+/* Nav dropdown (About → About Us / Team) */
+.nav-parent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: inherit;
+  font: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-caret {
+  width: 0.7em;
+  height: 0.7em;
+  transition: transform 0.25s ease;
+}
+
+.nav-caret.open {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 120;
+  min-width: 11rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem;
+  border: 1px solid var(--stone);
+  border-radius: 0.9rem;
+  background: #fff;
+  box-shadow: 0 20px 44px -22px rgba(11, 42, 30, 0.42);
+}
+
+/* Keeps the pointer inside the hover area while crossing the gap to the menu. */
+.nav-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -0.75rem;
+  left: 0;
+  right: 0;
+  height: 0.75rem;
+}
+
+.nav-dropdown-link {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.55rem;
+  color: var(--graphite);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.nav-dropdown-link:hover,
+.nav-dropdown-link:focus-visible {
+  color: var(--forest);
+  background: var(--mint);
+}
+
+.nav-dropdown-link.active {
+  color: var(--forest);
+  font-weight: 600;
+}

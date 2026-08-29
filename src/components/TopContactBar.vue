@@ -11,19 +11,9 @@
           <span>hello@worldofesg.in</span>
         </a>
       </div>
-
-      <div class="top-contact-socials" aria-label="Follow World of ESG">
-        <a :href="LINKEDIN_URL" target="_blank" rel="noopener" aria-label="Follow us on LinkedIn">
-          <svg class="icon" style="width: 1em; height: 1em"><use href="#i-linkedin" /></svg>
-        </a>
-      </div>
     </div>
   </aside>
 </template>
-
-<script setup lang="ts">
-import { LINKEDIN_URL } from '@/constants'
-</script>
 
 <style scoped>
 .top-contact-bar {
@@ -40,47 +30,39 @@ import { LINKEDIN_URL } from '@/constants'
   min-height: 42px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* Contact details sit on the right now that the LinkedIn icon is gone. */
+  justify-content: flex-end;
   gap: 1rem;
 }
 
-.top-contact-links,
-.top-contact-link,
-.top-contact-socials,
-.top-contact-socials a {
+.top-contact-links {
   display: flex;
   align-items: center;
-}
-
-.top-contact-location,
-.top-contact-link {
-  gap: 0.55rem;
-}
-
-.top-contact-links {
   gap: 1.75rem;
 }
-.top-contact-socials {
-  justify-content: flex-end;
-  gap: 0.9rem;
-}
 
-.top-contact-link,
-.top-contact-socials a {
+.top-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   color: inherit;
   text-decoration: none;
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+  transition: color 0.22s ease;
 }
 
-.top-contact-link:hover,
-.top-contact-socials a:hover {
+.top-contact-link:hover {
   color: var(--forest);
 }
 
-.top-contact-socials a:hover {
-  transform: translateY(-1px);
+.top-contact-link:focus-visible {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.top-contact-link .icon {
+  color: var(--forest);
+  flex: 0 0 auto;
 }
 
 @media (max-width: 767px) {
@@ -88,9 +70,6 @@ import { LINKEDIN_URL } from '@/constants'
     min-height: 38px;
   }
 
-  .top-contact-socials {
-    display: none;
-  }
   .top-contact-links {
     gap: 1rem;
   }
@@ -100,6 +79,7 @@ import { LINKEDIN_URL } from '@/constants'
   .top-contact-link {
     gap: 0.4rem;
   }
+
   .top-contact-link span {
     font-size: 0.72rem;
   }

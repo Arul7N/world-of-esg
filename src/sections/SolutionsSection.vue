@@ -1,7 +1,7 @@
 <template>
   <section id="solutions" class="relative bg-sand overflow-hidden">
     <div class="max-w-[1380px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10">
-      <span class="eyebrow mb-6" data-reveal>What Makes Us Different</span>
+      <span class="eyebrow mb-6" data-reveal>Services We Offer</span>
       <h2
         class="font-display font-bold text-charcoal text-[clamp(2rem,4.8vw,3.6rem)] leading-[1.03] max-w-2xl"
         data-reveal

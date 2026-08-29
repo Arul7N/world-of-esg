@@ -19,9 +19,56 @@
 
       <!-- Desktop Navigation -->
       <ul class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-graphite">
-        <li v-for="item in NAV_ITEMS" :key="item.name">
+        <li
+          v-for="item in NAV_ITEMS"
+          :key="item.name"
+          class="relative"
+          @mouseenter="item.children && (openMenu = item.name)"
+          @mouseleave="item.children && (openMenu = null)"
+        >
+          <!-- Dropdown parent -->
+          <template v-if="item.children">
+            <button
+              type="button"
+              class="nav-link nav-parent"
+              :class="{ active: isChildActive(item) }"
+              :aria-expanded="openMenu === item.name"
+              aria-haspopup="true"
+              @click="openMenu = openMenu === item.name ? null : item.name"
+            >
+              {{ item.name }}
+              <svg
+                class="nav-caret"
+                :class="{ open: openMenu === item.name }"
+                viewBox="0 0 12 12"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2.5 4.5 6 8l3.5-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+            <ul v-show="openMenu === item.name" class="nav-dropdown">
+              <li v-for="child in item.children" :key="child.name">
+                <router-link
+                  :to="child.href"
+                  class="nav-dropdown-link"
+                  :class="{ active: route.path === child.href }"
+                  @click="openMenu = null"
+                >
+                  {{ child.name }}
+                </router-link>
+              </li>
+            </ul>
+          </template>
+
           <router-link
-            v-if="!item.href.startsWith('#')"
+            v-else-if="!item.href.startsWith('#')"
             :to="item.href"
             class="nav-link"
             :class="{ active: route.path === item.href }"
@@ -82,12 +129,14 @@
         aria-label="Menu"
       >
         <div class="h-full flex flex-col justify-center px-8 gap-1">
-          <template v-for="(item, index) in NAV_ITEMS.slice(1)" :key="item.name">
+          <!-- Dropdown children are flattened here; a hover menu has no touch equivalent. -->
+          <template v-for="(item, index) in MOBILE_NAV_ITEMS" :key="item.name">
             <router-link
               v-if="!item.href.startsWith('#')"
               :to="item.href"
-              class="menu-item font-display text-4xl font-bold py-3 text-charcoal"
-              :style="{ 'transition-delay': `${(index + 1) * 0.08}s` }"
+              class="menu-item font-display font-bold py-3 text-charcoal"
+              :class="item.nested ? 'text-2xl pl-6 text-graphite' : 'text-4xl'"
+              :style="{ 'transition-delay': `${(index + 1) * 0.06}s` }"
               @click="navigationStore.closeMenu()"
             >
               {{ item.name }}
@@ -96,7 +145,7 @@
               v-else
               :href="item.href"
               class="menu-item font-display text-4xl font-bold py-3 text-charcoal"
-              :style="{ 'transition-delay': `${(index + 1) * 0.08}s` }"
+              :style="{ 'transition-delay': `${(index + 1) * 0.06}s` }"
               @click="handleMobileNavClick"
             >
               {{ item.name }}
@@ -118,12 +167,13 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
+import { computed, onMounted, onBeforeUnmount, ref, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 import { useNavigationStore } from '@/stores/navigation'
 import { useBookingStore } from '@/stores/booking'
 import { NAV_ITEMS } from '@/constants'
+import type { NavItem } from '@/types'
 import { scrollToTarget } from '@/composables/useSmoothScroll'
 import BaseButton from './BaseButton.vue'
 
@@ -131,6 +181,24 @@ const navigationStore = useNavigationStore()
 const bookingStore = useBookingStore()
 const router = useRouter()
 const route = useRoute()
+
+/** Name of the nav item whose dropdown is open, or null. */
+const openMenu = ref<string | null>(null)
+
+/** Highlight the parent when the current route is one of its children. */
+const isChildActive = (item: NavItem) => !!item.children?.some((child) => child.href === route.path)
+
+/**
+ * Mobile has no hover, so dropdown children are flattened into the list and
+ * indented rather than hidden behind a second interaction.
+ */
+const MOBILE_NAV_ITEMS = computed(() =>
+  NAV_ITEMS.slice(1).flatMap((item) =>
+    item.children
+      ? item.children.map((child) => ({ ...child, nested: true }))
+      : [{ ...item, nested: false }]
+  )
+)
 
 const handleScroll = () => {
   navigationStore.setScrolled(window.scrollY > 40)
@@ -200,12 +268,14 @@ const handleBookingClick = () => {
 const handleKeyDown = (event: KeyboardEvent) => {
   if (event.key === 'Escape') {
     navigationStore.closeMenu()
+    openMenu.value = null
   }
 }
 
 watch(
   () => route.path,
   async () => {
+    openMenu.value = null
     await nextTick()
     requestAnimationFrame(initScrollSpy)
   }

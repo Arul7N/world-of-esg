@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '@/pages/HomePage.vue'
 import AboutPage from '@/pages/AboutPage.vue'
 import CareerPage from '@/pages/CareerPage.vue'
+import TeamPage from '@/pages/TeamPage.vue'
 import PrivacyPolicy from '@/pages/PrivacyPolicy.vue'
 import CookiePolicy from '@/pages/CookiePolicy.vue'
 import TermsConditions from '@/pages/TermsConditions.vue'
@@ -28,6 +29,16 @@ const router = createRouter({
         title: 'About Us — World of ESG',
         description:
           'Meet World of ESG: the integrated climate intelligence ecosystem connecting strategy, technology, talent, and execution.',
+      },
+    },
+    {
+      path: '/team',
+      name: 'team',
+      component: TeamPage,
+      meta: {
+        title: 'Our Team — World of ESG',
+        description:
+          'Meet the World of ESG team: ESG strategy, climate science, technology, research and learning design.',
       },
     },
     {
