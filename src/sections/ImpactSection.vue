@@ -10,9 +10,8 @@
           Numbers that come from <span class="text-grad">real outcomes.</span>
         </h2>
         <p class="text-graphite text-lg leading-relaxed" data-reveal>
-          We measure success by the professionals trained, the reporting time reclaimed, and the
-          capabilities built — not the engagements sold. Every number below is confirmed, not
-          projected.
+          We measure success by the reporting time reclaimed and the capabilities built — not the
+          engagements sold. Every number below is confirmed, not projected.
         </p>
       </div>
 
@@ -52,20 +51,8 @@
         </div>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-10 lg:gap-0 lg:divide-x lg:divide-stone" id="impactStrip">
+      <div class="grid md:grid-cols-2 gap-10 lg:gap-0 lg:divide-x lg:divide-stone" id="impactStrip">
         <div class="lg:pr-10" data-reveal>
-          <div class="imp-dots" aria-hidden="true">
-            <i v-for="(d, i) in dotDelays" :key="i" :style="`--d:${d}s`"></i>
-          </div>
-          <div class="font-display font-extrabold text-3xl mt-4" style="color: #7430a4">
-            <span class="counter" data-target="500">0</span>+ learners
-          </div>
-          <p class="text-graphite text-[15px] leading-relaxed mt-1">
-            Professionals trained across corporate sustainability teams and university cohorts —
-            each dot is ten people.
-          </p>
-        </div>
-        <div class="lg:px-10" data-reveal>
           <div class="imp-mods" aria-hidden="true">
             <i v-for="(d, i) in modDelays" :key="i" :style="`--d:${d}s`"></i>
           </div>
@@ -135,7 +122,6 @@ import { ref, onMounted } from 'vue'
 
 const trackEl = ref<HTMLElement | null>(null)
 
-const dotDelays = Array.from({ length: 50 }, (_, i) => (i * 0.05).toFixed(2))
 const modDelays = Array.from({ length: 20 }, (_, i) => (i * 0.07).toFixed(2))
 
 onMounted(() => {

@@ -1059,30 +1059,7 @@ input:focus-visible {
 .imp-track.go .imp-saved {
   opacity: 1;
 }
-.imp-dots {
-  display: grid;
-  grid-template-columns: repeat(10, 12px);
-  gap: 7px;
-}
-.imp-dots i {
-  width: 12px;
-  height: 12px;
-  border-radius: 99px;
-  background: #7430a4;
-  opacity: 0.16;
-  transform: scale(0.4);
-}
-#impactStrip.go .imp-dots i {
-  animation: dotIn 0.5s forwards;
-  animation-delay: var(--d);
-}
-@keyframes dotIn {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-.imp-mods {
+#impactStrip.go .imp-mods {
   display: grid;
   grid-template-columns: repeat(10, 16px);
   gap: 7px;
@@ -1610,4 +1587,34 @@ input:focus-visible {
 .nav-dropdown-link.active {
   color: var(--forest);
   font-weight: 600;
+}
+
+/* Values icon — mirrors the Vision eye and Mission arch treatments */
+@keyframes valTrace {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+.val-star {
+  stroke-dasharray: 4 7;
+  animation: valTrace 3.2s linear infinite;
+}
+
+@keyframes valPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 1;
+  }
+}
+
+.val-core {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: valPulse 2.8s ease-in-out infinite;
 }

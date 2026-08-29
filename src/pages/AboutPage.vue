@@ -20,12 +20,8 @@
             systems, and measurable progress.
           </p>
         </div>
-        <div
-          class="globe-wrap"
-          role="img"
-          aria-label="World of ESG globe — environmental, social, and governance intelligence connected worldwide"
-        >
-          <canvas id="about-canvas" aria-hidden="true"></canvas>
+        <div class="eco-wrap">
+          <EcosystemWheel />
           <p class="ecosystem-flow">
             <span>Data</span><i>→</i><span>Intelligence</span><i>→</i><span>Action</span><i>→</i
             ><span>Impact</span>
@@ -90,30 +86,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue'
 import AwardsSection from '@/sections/AwardsSection.vue'
 import FooterSection from '@/sections/FooterSection.vue'
-import { initHeroGlobe, type GlobeHandle } from '@/composables/useGlobe'
+import EcosystemWheel from '@/components/EcosystemWheel.vue'
 
 // ── Section visibility flags ──────────────────────────────────────────────
 // Hidden for now, kept in the codebase so they can be switched back on without
 // rewriting anything. Flip either to `true` to publish that section again.
 const showRecognitionSection = false // "Recognition" / Awards and Recognitions
-
-let globe: GlobeHandle | null = null
-
-onMounted(() => {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion:reduce)').matches
-  // Same dotted-Earth animation as the home hero — no preloader here, so start at once.
-  // cameraX 0 centres the globe in the panel (the hero offsets it to -2 to clear the headline).
-  globe = initHeroGlobe(reduceMotion, 'about-canvas', 0)
-  globe.start()
-})
-
-onBeforeUnmount(() => {
-  globe?.dispose()
-  globe = null
-})
 
 const disciplines = [
   'ESG Strategy',
@@ -158,16 +138,11 @@ const disciplines = [
   bottom: -11rem;
   background: rgba(58, 77, 184, 0.12);
 }
-.globe-wrap {
+.eco-wrap {
   position: relative;
-  width: min(100%, 34rem);
-  aspect-ratio: 1 / 1;
+  width: min(100%, 38rem);
   margin-inline: auto;
-}
-.globe-wrap canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+  padding-bottom: 2.5rem;
 }
 .ecosystem-flow {
   position: absolute;
@@ -219,12 +194,12 @@ const disciplines = [
   .about-hero-grid {
     grid-template-columns: 1fr;
   }
-  .globe-wrap {
+  .eco-wrap {
     margin-top: 1rem;
   }
 }
 @media (max-width: 480px) {
-  .globe-wrap {
+  .eco-wrap {
     width: 100%;
   }
 }

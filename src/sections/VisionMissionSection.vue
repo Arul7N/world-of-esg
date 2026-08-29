@@ -117,13 +117,14 @@
             <svg viewBox="0 0 64 64" class="w-14 h-14 shrink-0" aria-hidden="true">
               <circle cx="32" cy="32" r="30" fill="rgba(169,188,245,.10)" />
               <polygon
+                class="val-star"
                 points="32,14 38,26 52,28 42,38 44,52 32,46 20,52 22,38 12,28 26,26"
                 fill="none"
                 stroke="#A9BCF5"
                 stroke-width="2"
                 stroke-linejoin="round"
               />
-              <circle cx="32" cy="32" r="5" fill="#A9BCF5" opacity=".7" />
+              <circle class="val-core" cx="32" cy="32" r="5" fill="#A9BCF5" opacity=".7" />
             </svg>
             <h3 class="font-serif-q text-4xl md:text-5xl" style="color: var(--sky)">Values</h3>
           </div>
@@ -204,15 +205,14 @@ const VALUES: Value[] = [
   {
     name: 'Trust',
     description:
-      'A disclosure is only worth what it withstands. We are open about our methods, honest about what the data can and cannot yet prove, and we deliver what we committed to.',
+      'Open about our methods, honest about what the data can prove, and we deliver what we promised.',
     stroke: AURORA,
     chip: 'rgba(91, 227, 139, 0.15)',
     shapes: [{ t: 'path', d: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' }],
   },
   {
     name: 'Respect',
-    description:
-      'Every organisation starts from a different baseline. We listen before we advise, and we treat clients, colleagues and partners as equals in the work.',
+    description: 'Every organisation starts somewhere different. We listen before we advise.',
     stroke: SKY,
     chip: 'rgba(169, 188, 245, 0.15)',
     shapes: [
@@ -224,8 +224,7 @@ const VALUES: Value[] = [
   },
   {
     name: 'Excellence',
-    description:
-      'Our work is read by auditors, regulators and investors. We hold it to that standard before it ever leaves our hands.',
+    description: 'Auditors, regulators and investors read our work. We hold it to that standard.',
     stroke: AURORA,
     chip: 'rgba(91, 227, 139, 0.15)',
     shapes: [
@@ -238,8 +237,7 @@ const VALUES: Value[] = [
   },
   {
     name: 'Leadership',
-    description:
-      'Climate regulation moves faster than the guidance around it. We take a clear position early rather than waiting for the market to settle it for us.',
+    description: 'Regulation moves faster than the guidance. We take a position early.',
     stroke: SKY,
     chip: 'rgba(169, 188, 245, 0.15)',
     shapes: [{ t: 'polyline', points: '22 12 18 12 15 21 9 3 6 12 2 12' }],
@@ -247,7 +245,7 @@ const VALUES: Value[] = [
   {
     name: 'Responsibility',
     description:
-      'We own the outcomes we help create — the progress and the shortfalls alike. When something misses the mark, we say so and put it right.',
+      'We own the outcome — progress and shortfalls alike. If it misses, we put it right.',
     stroke: AURORA,
     chip: 'rgba(91, 227, 139, 0.15)',
     shapes: [

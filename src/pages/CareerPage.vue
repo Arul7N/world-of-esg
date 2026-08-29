@@ -1,8 +1,9 @@
 <template>
   <div class="career-page">
-    <!-- Hero Section -->
+    <!-- We're Hiring: one section — intro copy followed by the open-roles panel -->
     <section
-      class="relative min-h-[50vh] flex items-center overflow-hidden pt-28 pb-16 bg-gradient-to-b from-sand to-mist"
+      id="open-roles"
+      class="relative overflow-hidden pt-28 pb-24 md:pb-32 bg-gradient-to-b from-sand to-mist"
     >
       <div
         class="blob"
@@ -15,9 +16,9 @@
         "
       ></div>
 
-      <div class="relative max-w-[1380px] mx-auto w-full px-6 md:px-10 z-10 career-hero-grid">
-        <div class="max-w-2xl">
-          <span class="eyebrow mb-7">Join Our Team</span>
+      <div class="relative max-w-[1380px] mx-auto w-full px-6 md:px-10 z-10">
+        <div class="max-w-3xl">
+          <span class="eyebrow mb-7">We're Hiring</span>
           <h1
             class="font-display font-extrabold text-charcoal leading-[1.04] text-[clamp(2.5rem,4.9vw,4rem)] mb-6"
           >
@@ -29,74 +30,18 @@
             Help organizations navigate the ESG landscape with
             <span class="text-grad">integrated strategy, technology, and execution.</span>
           </p>
-          <p class="text-graphite text-[clamp(1.0rem,1.4vw,1.25rem)] leading-relaxed max-w-xl">
+          <p class="text-graphite text-[clamp(1.0rem,1.4vw,1.25rem)] leading-relaxed mb-5">
             We're building a team of passionate professionals committed to driving sustainable
             growth across industries.
           </p>
-        </div>
-
-        <aside class="career-path-card" aria-label="Career path explorer">
-          <div class="flex items-center justify-between gap-4">
-            <div>
-              <p class="career-path-kicker">Find your path</p>
-              <h2 class="font-display font-bold text-2xl text-charcoal mt-1">
-                Where can you make an impact?
-              </h2>
-            </div>
-            <span class="career-path-mark" aria-hidden="true">↗</span>
-          </div>
-          <div class="career-path-tabs" role="tablist" aria-label="Career paths">
-            <button
-              v-for="path in careerPaths"
-              :key="path.name"
-              type="button"
-              class="career-path-tab"
-              :class="{ active: selectedPath.name === path.name }"
-              :style="{ '--path-color': path.color }"
-              role="tab"
-              :aria-selected="selectedPath.name === path.name"
-              @click="selectedPath = path"
-            >
-              {{ path.name }}
-            </button>
-          </div>
-          <div class="career-path-result" :style="{ '--path-color': selectedPath.color }">
-            <svg class="icon career-path-icon" aria-hidden="true">
-              <use :href="`#i-${selectedPath.icon}`" />
-            </svg>
-            <div>
-              <p class="text-sm font-semibold" :style="{ color: selectedPath.color }">
-                {{ selectedPath.role }}
-              </p>
-              <p class="text-graphite text-sm leading-relaxed mt-2">
-                {{ selectedPath.description }}
-              </p>
-            </div>
-          </div>
-          <a href="#open-roles" class="career-path-link">Explore open roles <span>→</span></a>
-        </aside>
-      </div>
-    </section>
-
-    <!-- Job Listings Section -->
-    <section id="open-roles" class="relative py-28 md:py-40 overflow-hidden">
-      <div class="max-w-[1380px] mx-auto px-6 md:px-10">
-        <div class="mb-16 max-w-3xl">
-          <span class="eyebrow mb-6" data-reveal>Open Positions</span>
-          <h2
-            class="font-display font-bold text-charcoal text-[clamp(2rem,4.8vw,3.6rem)] leading-[1.03]"
-            data-reveal
-          >
-            We're Hiring
-          </h2>
-          <p class="text-graphite text-lg md:text-xl leading-relaxed mt-6" data-reveal>
+          <p class="text-graphite text-[clamp(1.0rem,1.4vw,1.25rem)] leading-relaxed">
             Every current opening is posted on our LinkedIn page — always live, always up to date.
             Browse the roles there and apply directly.
           </p>
         </div>
 
         <!-- Roles live on LinkedIn: no per-role markup to maintain here. -->
-        <div class="roles-panel" data-reveal>
+        <div id="roles" class="roles-panel mt-14 md:mt-16" data-reveal>
           <div class="roles-panel-main">
             <span class="roles-linkedin-mark" aria-hidden="true">
               <svg class="icon icon-fill" style="width: 1.7rem; height: 1.7rem">
@@ -142,20 +87,6 @@
             </div>
             <p class="text-white/50 text-sm mt-6">Opens LinkedIn in a new tab</p>
           </div>
-
-          <ul class="roles-areas" aria-label="Areas we hire across">
-            <li
-              v-for="path in careerPaths"
-              :key="path.name"
-              :style="{ '--path-color': path.color }"
-            >
-              <svg class="icon" aria-hidden="true"><use :href="`#i-${path.icon}`" /></svg>
-              <div>
-                <p class="roles-area-name">{{ path.name }}</p>
-                <p class="roles-area-role">{{ path.role }}</p>
-              </div>
-            </li>
-          </ul>
         </div>
       </div>
     </section>
@@ -277,41 +208,6 @@ import { ref } from 'vue'
 import FooterSection from '@/sections/FooterSection.vue'
 import { LINKEDIN_JOBS_URL, CAREERS_EMAIL } from '@/constants'
 
-const careerPaths = [
-  {
-    name: 'Strategy',
-    role: 'Turn ambition into a roadmap',
-    description:
-      'Guide leaders through ESG priorities, climate risk, reporting, and credible net-zero plans.',
-    icon: 'target',
-    color: '#1D6B43',
-  },
-  {
-    name: 'Technology',
-    role: 'Build intelligence from data',
-    description:
-      'Create the platform tools that make carbon data, compliance, and reporting simpler to act on.',
-    icon: 'cpu',
-    color: '#3A4DB8',
-  },
-  {
-    name: 'Delivery',
-    role: 'Turn plans into progress',
-    description:
-      'Lead practical decarbonization work that moves projects from baseline to verified outcomes.',
-    icon: 'zap',
-    color: '#117C50',
-  },
-  {
-    name: 'Learning',
-    role: 'Build capability that lasts',
-    description: 'Equip organizations and future leaders with the ESG knowledge to sustain change.',
-    icon: 'users',
-    color: '#7430A4',
-  },
-]
-const selectedPath = ref(careerPaths[0])
-
 const benefitIcons: Record<number, string> = {
   1: 'globe',
   2: 'zap',
@@ -395,7 +291,6 @@ const benefits = ref([
 
 .roles-panel {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
   gap: clamp(2rem, 4vw, 3.5rem);
   padding: clamp(2rem, 4vw, 3.5rem);
   border-radius: 1.75rem;
@@ -460,51 +355,6 @@ const benefits = ref([
   outline-offset: 3px;
 }
 
-.roles-areas {
-  display: grid;
-  align-content: start;
-  gap: 0.7rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.roles-areas li {
-  display: grid;
-  grid-template-columns: 2.1rem 1fr;
-  gap: 0.85rem;
-  align-items: center;
-  padding: 0.95rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-left: 3px solid var(--path-color);
-  border-radius: 0.9rem;
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.roles-areas .icon {
-  width: 1.6rem;
-  height: 1.6rem;
-  color: var(--path-color);
-}
-.roles-area-name {
-  color: #fff;
-  font:
-    700 0.95rem 'Inter Tight',
-    sans-serif;
-}
-.roles-area-role {
-  margin-top: 0.15rem;
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-@media (max-width: 900px) {
-  .roles-panel {
-    grid-template-columns: 1fr;
-  }
-}
-
 .text-grad {
   background: linear-gradient(
     100deg,
@@ -525,115 +375,6 @@ const benefits = ref([
   opacity: 0.6;
 }
 
-.career-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.72fr);
-  align-items: center;
-  gap: clamp(3rem, 7vw, 8rem);
-}
-
-.career-path-card {
-  padding: clamp(1.4rem, 3vw, 2rem);
-  border: 1px solid rgba(155, 199, 164, 0.65);
-  border-radius: 1.6rem;
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: 0 28px 60px -38px rgba(11, 42, 30, 0.45);
-  backdrop-filter: blur(16px);
-}
-
-.career-path-kicker {
-  color: var(--forest);
-  font:
-    700 0.72rem 'Inter Tight',
-    sans-serif;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-.career-path-mark {
-  display: grid;
-  place-items: center;
-  width: 2.35rem;
-  height: 2.35rem;
-  border-radius: 50%;
-  color: var(--forest);
-  background: var(--mint);
-  font-size: 1.3rem;
-}
-.career-path-tabs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.45rem;
-  margin-top: 1.45rem;
-}
-.career-path-tab {
-  padding: 0.65rem 0.5rem;
-  border: 1px solid var(--stone);
-  border-radius: 0.65rem;
-  color: var(--graphite);
-  background: #fff;
-  font:
-    600 0.77rem 'Inter Tight',
-    sans-serif;
-  cursor: pointer;
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
-}
-.career-path-tab:hover {
-  transform: translateY(-1px);
-  border-color: var(--path-color);
-}
-.career-path-tab.active {
-  border-color: var(--path-color);
-  color: #fff;
-  background: var(--path-color);
-}
-.career-path-result {
-  display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  gap: 0.85rem;
-  min-height: 8.7rem;
-  margin-top: 0.85rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--path-color) 10%, white),
-    rgba(255, 255, 255, 0.86)
-  );
-}
-.career-path-icon {
-  width: 2.25rem;
-  height: 2.25rem;
-  margin-top: 0.1rem;
-  color: var(--path-color);
-}
-.career-path-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: 1.25rem;
-  color: var(--forest);
-  font:
-    700 0.85rem 'Inter Tight',
-    sans-serif;
-  text-decoration: none;
-}
-.career-path-link span {
-  font-size: 1.2rem;
-  transition: transform 0.2s ease;
-}
-.career-path-link:hover span {
-  transform: translateX(4px);
-}
 @media (max-width: 1023px) {
-  .career-hero-grid {
-    grid-template-columns: 1fr;
-  }
-  .career-path-card {
-    max-width: 36rem;
-  }
 }
 </style>

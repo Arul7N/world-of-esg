@@ -33,7 +33,6 @@ export const NAV_ITEMS: NavItem[] = [
   { name: 'Services', href: '#solutions' },
   { name: 'Industries', href: '#industries' },
   { name: 'Frameworks', href: '#frameworks' },
-  { name: 'Impact', href: '#impact' },
   { name: 'Partners', href: '#partners' },
   { name: 'Career', href: '/career' },
 ]
@@ -410,7 +409,6 @@ export const MARKET_STATS = [
 
 export const IMPACT_METRICS = [
   { value: '70', label: 'of reporting time, reclaimed.', suffix: '%' },
-  { value: '500', label: 'learners', suffix: '+' },
   { value: '20', label: 'platform modules', suffix: '+' },
   { value: '6', label: 'pillars, one system', suffix: '' },
 ]
