@@ -21,13 +21,13 @@ export const CAREERS_EMAIL = 'careers@worldofesg.in'
 export const CONTACT_EMAIL = 'hello@worldofesg.in'
 
 export const NAV_ITEMS: NavItem[] = [
-  { name: 'Home', href: '#home' },
   {
     name: 'About',
     href: '/about',
     children: [
       { name: 'About Us', href: '/about' },
-      { name: 'Team', href: '/team' },
+      { name: 'Meet the Team', href: '/team' },
+      { name: 'What Drives Us', href: '/#challenge' },
     ],
   },
   { name: 'Services', href: '#solutions' },

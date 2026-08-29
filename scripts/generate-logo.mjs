@@ -15,7 +15,8 @@
  *   public/images/logo/logo.png        512x512  sphere only, transparent — used in all 7 UI slots
  *   public/images/logo/logo-full.png   full lockup, transparent — for decks / wide placements
  *   public/apple-touch-icon.png        180x180  flattened on white (iOS ignores alpha)
- *   public/favicon-32.png / -16.png    browser tab icons
+ *   public/favicon-192/96/48/32/16.png browser tab + Google Search icons
+ *                                     (Search needs >=48px, so 48/96/192 exist)
  *   public/og-image.jpg                1200x630 social share card (was missing entirely)
  */
 
@@ -156,12 +157,20 @@ async function main() {
 
   const logo512 = await squareMark(markPng, 512)
   const logo180 = await squareMark(markPng, 180)
+  // Google Search requires a favicon of at least 48x48, ideally a multiple of
+  // 48 — 16/32 alone leave it falling back to whatever it cached previously.
+  const logo192 = await squareMark(markPng, 192)
+  const logo96 = await squareMark(markPng, 96)
+  const logo48 = await squareMark(markPng, 48)
   const logo32 = await squareMark(markPng, 32)
   const logo16 = await squareMark(markPng, 16)
 
   const out = [
     ['public/images/logo/logo.png', logo512],
     ['public/images/logo/logo-full.png', fullTrimmed],
+    ['public/favicon-192.png', logo192],
+    ['public/favicon-96.png', logo96],
+    ['public/favicon-48.png', logo48],
     ['public/favicon-32.png', logo32],
     ['public/favicon-16.png', logo16],
   ]

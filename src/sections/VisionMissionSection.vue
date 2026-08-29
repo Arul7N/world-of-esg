@@ -129,21 +129,17 @@
             <h3 class="font-serif-q text-4xl md:text-5xl" style="color: var(--sky)">Values</h3>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-3">
             <div
-              v-for="(value, index) in VALUES"
+              v-for="value in VALUES"
               :key="value.name"
-              class="rounded-2xl p-5 h-full"
-              :class="{ 'sm:col-span-2': index === VALUES.length - 1 }"
+              class="value-card"
               style="
                 background: rgba(169, 188, 245, 0.08);
                 border: 1px solid rgba(169, 188, 245, 0.16);
               "
             >
-              <div
-                class="w-9 h-9 rounded-full flex items-center justify-center mb-4"
-                :style="{ background: value.chip }"
-              >
+              <div class="value-chip" :style="{ background: value.chip }">
                 <svg
                   viewBox="0 0 24 24"
                   class="w-4 h-4"
@@ -167,12 +163,14 @@
                   </template>
                 </svg>
               </div>
-              <h4 class="font-display font-bold text-base mb-2" :style="{ color: value.stroke }">
-                {{ value.name }}
-              </h4>
-              <p class="text-xs leading-relaxed" style="color: rgba(216, 231, 255, 0.75)">
-                {{ value.description }}
-              </p>
+              <div>
+                <h4 class="font-display font-bold text-base" :style="{ color: value.stroke }">
+                  {{ value.name }}
+                </h4>
+                <p class="text-xs leading-relaxed mt-1" style="color: rgba(216, 231, 255, 0.75)">
+                  {{ value.description }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -255,3 +253,34 @@ const VALUES: Value[] = [
   },
 ]
 </script>
+
+<style scoped>
+/* Full-width rows rather than a 2-up grid: the icon sits beside the copy so
+   each value reads as one line of thought instead of a cramped tile. */
+.value-card {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem 1.15rem;
+  border-radius: 1rem;
+  transition:
+    background 0.28s ease,
+    border-color 0.28s ease,
+    transform 0.28s ease;
+}
+
+.value-card:hover {
+  background: rgba(169, 188, 245, 0.14) !important;
+  border-color: rgba(169, 188, 245, 0.3) !important;
+  transform: translateX(4px);
+}
+
+.value-chip {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+}
+</style>

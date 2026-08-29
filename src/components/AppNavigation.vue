@@ -193,7 +193,7 @@ const isChildActive = (item: NavItem) => !!item.children?.some((child) => child.
  * indented rather than hidden behind a second interaction.
  */
 const MOBILE_NAV_ITEMS = computed(() =>
-  NAV_ITEMS.slice(1).flatMap((item) =>
+  NAV_ITEMS.flatMap((item) =>
     item.children
       ? item.children.map((child) => ({ ...child, nested: true }))
       : [{ ...item, nested: false }]

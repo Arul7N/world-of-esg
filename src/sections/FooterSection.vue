@@ -14,7 +14,7 @@
               >World of ESG</span
             >
           </router-link>
-          <p class="mt-8 max-w-[19rem] text-[1.05rem] leading-[1.75] text-white/80">
+          <p class="footer-strap">
             Enabling organizations to drive sustainable change with data, strategy, and technology.
           </p>
           <div class="mt-14">
@@ -138,6 +138,22 @@ const year = new Date().getFullYear()
     radial-gradient(circle at 88% 12%, rgba(37, 100, 168, 0.13), transparent 31%),
     linear-gradient(135deg, #071e32 0%, #062536 47%, #062d25 100%);
 }
+.footer-strap {
+  /* Starts under "World of ESG", not under the logo: logo w-14 (3.5rem) + gap-4 (1rem). */
+  margin-top: 1.5rem;
+  margin-left: 4.5rem;
+  max-width: 19rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 640px) {
+  .footer-strap {
+    margin-left: 0;
+  }
+}
+
 .footer-heading {
   color: rgba(255, 255, 255, 0.98);
   font-family: 'Inter Tight', sans-serif;
