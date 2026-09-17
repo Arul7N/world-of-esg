@@ -73,7 +73,9 @@
         </p>
         <div class="flex flex-wrap gap-4 mb-12" id="heroCta" style="opacity: 0">
           <button
+            type="button"
             class="btn-primary inline-flex items-center gap-2 px-8 py-4 font-display font-medium"
+            @click="bookingStore.openBooking()"
           >
             Book a Call
             <svg class="icon arrow" style="width: 1.05em; height: 1.05em">
@@ -81,7 +83,9 @@
             </svg>
           </button>
           <button
+            type="button"
             class="btn-ghost inline-flex items-center gap-2 px-8 py-4 font-display font-medium"
+            @click="scrollToTarget('#solutions')"
           >
             Explore Solutions
             <svg class="icon" style="width: 1em; height: 1em"><use href="#i-arrow-ur" /></svg>
@@ -95,9 +99,12 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, watch } from 'vue'
 import { useAppStore } from '@/stores/app'
+import { useBookingStore } from '@/stores/booking'
+import { scrollToTarget } from '@/composables/useSmoothScroll'
 import { initHeroGlobe, type GlobeHandle } from '@/composables/useGlobe'
 
 const appStore = useAppStore()
+const bookingStore = useBookingStore()
 const reduceMotion =
   typeof window !== 'undefined'
     ? window.matchMedia('(prefers-reduced-motion:reduce)').matches
