@@ -71,7 +71,7 @@
             v-else-if="!item.href.startsWith('#')"
             :to="item.href"
             class="nav-link"
-            :class="{ active: route.path === item.href }"
+            :class="{ active: isItemActive(item) }"
           >
             {{ item.name }}
           </router-link>
@@ -79,7 +79,7 @@
             v-else
             :href="item.href"
             class="nav-link"
-            :class="{ active: navigationStore.activeSection === item.href.slice(1) }"
+            :class="{ active: isItemActive(item) }"
             @click="handleNavClick"
           >
             {{ item.name }}
@@ -189,6 +189,21 @@ const openMenu = ref<string | null>(null)
 const isChildActive = (item: NavItem) => !!item.children?.some((child) => child.href === route.path)
 
 /**
+ * Exactly one item should ever be underlined.
+ *  - section links only count on the home page, where those sections exist;
+ *  - Home only counts while no section is in view, so it does not underline
+ *    alongside whichever section you have scrolled to.
+ */
+const isItemActive = (item: NavItem) => {
+  if (item.children) return isChildActive(item)
+  if (item.href.startsWith('#')) {
+    return route.path === '/' && navigationStore.activeSection === item.href.slice(1)
+  }
+  if (item.href === '/') return route.path === '/' && !navigationStore.activeSection
+  return route.path === item.href
+}
+
+/**
  * Mobile has no hover, so dropdown children are flattened into the list and
  * indented rather than hidden behind a second interaction.
  */
@@ -208,10 +223,15 @@ const handleScroll = () => {
 // so activeSection stayed 'home' forever and the nav's active underline never
 // moved off Home. Rebuilt on route change because the sections only exist on /.
 let spyTriggers: ScrollTrigger[] = []
+/* Sections currently in view. Tracked as a set because onToggle only fires per
+   trigger — without it, scrolling above every section left the last one lit. */
+const inView = new Set<string>()
 
 const killScrollSpy = () => {
   spyTriggers.forEach((t) => t.kill())
   spyTriggers = []
+  inView.clear()
+  navigationStore.setActiveSection('')
 }
 
 const initScrollSpy = () => {
@@ -228,7 +248,11 @@ const initScrollSpy = () => {
         start: 'top 45%',
         end: 'bottom 45%',
         onToggle: (self) => {
-          if (self.isActive) navigationStore.setActiveSection(id)
+          if (self.isActive) inView.add(id)
+          else inView.delete(id)
+          // Empty set -> '', so scrolling above every section clears the
+          // underline instead of leaving the last one lit.
+          navigationStore.setActiveSection([...inView].pop() ?? '')
         },
       })
     )
@@ -244,6 +268,10 @@ const handleNavClick = async (event: Event) => {
   // Section lives on another page (e.g. clicking Services from /about):
   // route home first, then let the router's scrollBehavior handle the hash.
   if (!scrollToTarget(target)) {
+    // Section lives on the home page: route there, then scroll once the page
+    // has settled. Without the wait the target moves under the scroll and you
+    // land on whichever section happens to be there mid-layout.
+    // App.vue scrolls once the home page's pinned sections have settled.
     await router.push({ path: '/', hash: target })
     return
   }

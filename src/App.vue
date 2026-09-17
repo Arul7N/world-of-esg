@@ -63,6 +63,15 @@
     <!-- Grain -->
     <div class="grain" aria-hidden="true" />
 
+    <!--
+      Covers the moment between landing on a page and the hash scroll settling.
+      Without it you see the destination render at the top, then snap down as
+      the pinned sections resize — read as a glitch.
+    -->
+    <Transition name="curtain">
+      <div v-if="isSettling" class="scroll-curtain" aria-hidden="true" />
+    </Transition>
+
     <!-- Custom Cursor (Desktop) -->
     <div v-if="!isMobile" id="cur" aria-hidden="true">
       <svg viewBox="0 0 34 34">
@@ -108,13 +117,15 @@ import BookingModal from '@/components/BookingModal.vue'
 import ChatPanel from '@/components/ChatPanel.vue'
 import FloatingActions from '@/components/FloatingActions.vue'
 import { useAppStore } from '@/stores/app'
-import { setLenis } from '@/composables/useSmoothScroll'
+import { setLenis, scrollToTargetWhenReady } from '@/composables/useSmoothScroll'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const isLoading = ref(true)
 const loadingProgress = ref(0)
 const isMobile = ref(false)
+/** True while a hash target is being scrolled to and the layout is still moving. */
+const isSettling = ref(false)
 const appStore = useAppStore()
 const route = useRoute()
 
@@ -124,6 +135,8 @@ const route = useRoute()
 watch(
   () => route.path,
   async () => {
+    // Raised before the new page paints, lowered once the scroll has settled.
+    isSettling.value = !!route.hash
     await nextTick()
     // Let images and fonts settle before ScrollTrigger measures positions.
     requestAnimationFrame(() => {
@@ -143,6 +156,12 @@ watch(
       }
 
       ScrollTrigger.refresh()
+
+      // Only now do the pin-spacers exist, so a hash target finally sits at its
+      // real offset. Scrolling any earlier lands ~100vh short — which is why
+      // footer "Solutions" links used to stop on the pinned manifesto.
+      if (route.hash) scrollToTargetWhenReady(route.hash).finally(() => (isSettling.value = false))
+      else isSettling.value = false
     })
   }
 )
@@ -173,7 +192,11 @@ onMounted(async () => {
 
   // iOS Safari: address bar appears/hides on scroll, shifting the viewport height.
   // Refresh ScrollTrigger after the page settles so all trigger positions recalculate.
-  setTimeout(() => ScrollTrigger.refresh(), 500)
+  setTimeout(() => {
+    ScrollTrigger.refresh()
+    // Deep link straight to a section: wait for the pins before scrolling.
+    if (route.hash) scrollToTargetWhenReady(route.hash).finally(() => (isSettling.value = false))
+  }, 500)
   window.addEventListener('resize', () => ScrollTrigger.refresh(), { passive: true })
 })
 
@@ -588,6 +611,23 @@ function initCustomCursor() {
     opacity: 0;
     transform: translateY(-54px) scale(0.3);
   }
+}
+
+.scroll-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  background: var(--sand);
+  pointer-events: none;
+}
+
+/* Appears instantly, fades away once the target has settled. */
+.curtain-leave-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.curtain-leave-to {
+  opacity: 0;
 }
 
 /* ── Ring + logo mark */

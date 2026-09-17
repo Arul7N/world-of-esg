@@ -4,7 +4,8 @@ import { ref } from 'vue'
 export const useNavigationStore = defineStore('navigation', () => {
   const isMenuOpen = ref(false)
   const isScrolled = ref(false)
-  const activeSection = ref('home')
+  /** Id of the in-view home section, or '' when none (e.g. on another page). */
+  const activeSection = ref('')
   const isChatOpen = ref(false)
 
   const toggleMenu = () => {

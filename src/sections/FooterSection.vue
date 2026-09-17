@@ -20,19 +20,27 @@
           <div class="footer-follow">
             <h3 class="footer-heading">Follow Us On</h3>
             <div class="footer-socials">
-              <a
-                v-for="social in SOCIALS"
-                :key="social.name"
-                :href="social.url"
-                target="_blank"
-                rel="noopener"
-                class="footer-social"
-                :aria-label="`Follow World of ESG on ${social.name}`"
-              >
-                <svg class="icon icon-fill" style="width: 1.35rem; height: 1.35rem">
-                  <use :href="`#i-${social.icon}`" />
-                </svg>
-              </a>
+              <template v-for="social in SOCIALS" :key="social.name">
+                <!-- Linked once a URL exists; until then the icon still shows
+                     but is inert rather than pointing at the wrong account. -->
+                <a
+                  v-if="social.url"
+                  :href="social.url"
+                  target="_blank"
+                  rel="noopener"
+                  class="footer-social"
+                  :aria-label="`Follow World of ESG on ${social.name}`"
+                >
+                  <svg class="icon icon-fill" style="width: 1.35rem; height: 1.35rem">
+                    <use :href="`#i-${social.icon}`" />
+                  </svg>
+                </a>
+                <span v-else class="footer-social footer-social-pending" aria-hidden="true">
+                  <svg class="icon icon-fill" style="width: 1.35rem; height: 1.35rem">
+                    <use :href="`#i-${social.icon}`" />
+                  </svg>
+                </span>
+              </template>
             </div>
           </div>
         </div>
@@ -120,6 +128,10 @@ const handleNavClick = async (event: Event) => {
 
   // Footer renders on About too, where these sections don't exist — route home.
   if (!scrollToTarget(target)) {
+    // Section lives on the home page: route there, then scroll once the page
+    // has settled. Without the wait the target moves under the scroll and you
+    // land on whichever section happens to be there mid-layout.
+    // App.vue scrolls once the home page's pinned sections have settled.
     await router.push({ path: '/', hash: target })
     return
   }
@@ -131,15 +143,13 @@ const handleNavClick = async (event: Event) => {
   }
 }
 
-/* Only render a social icon once its URL is filled in, so an unset account
-   never ships as a broken or wrong link. */
-const SOCIALS = computed(() =>
-  [
-    { name: 'LinkedIn', icon: 'linkedin', url: LINKEDIN_URL },
-    { name: 'Facebook', icon: 'facebook', url: FACEBOOK_URL },
-    { name: 'Instagram', icon: 'instagram', url: INSTAGRAM_URL },
-  ].filter((s) => s.url)
-)
+/* All three icons show. Filling in FACEBOOK_URL / INSTAGRAM_URL in
+   src/constants turns each one into a live link with no markup change. */
+const SOCIALS = computed(() => [
+  { name: 'LinkedIn', icon: 'linkedin', url: LINKEDIN_URL },
+  { name: 'Facebook', icon: 'facebook', url: FACEBOOK_URL },
+  { name: 'Instagram', icon: 'instagram', url: INSTAGRAM_URL },
+])
 
 const year = new Date().getFullYear()
 </script>
@@ -242,7 +252,13 @@ const year = new Date().getFullYear()
     background 0.22s ease,
     transform 0.22s ease;
 }
-.footer-social:hover {
+/* No URL yet: same tile, just not interactive. */
+.footer-social-pending {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.footer-social:not(.footer-social-pending):hover {
   color: var(--deep);
   background: var(--aurora);
   transform: translateY(-3px);

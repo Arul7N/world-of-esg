@@ -7,7 +7,6 @@ import WhatDrivesUsPage from '@/pages/WhatDrivesUsPage.vue'
 import PrivacyPolicy from '@/pages/PrivacyPolicy.vue'
 import CookiePolicy from '@/pages/CookiePolicy.vue'
 import TermsConditions from '@/pages/TermsConditions.vue'
-import { scrollToTarget } from '@/composables/useSmoothScroll'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -94,17 +93,9 @@ const router = createRouter({
       return savedPosition
     }
     if (to.hash) {
-      // The target section mounts with the new page, so wait a frame before
-      // measuring, and scroll through Lenis rather than natively — mixing the
-      // two leaves ScrollTrigger reading stale positions.
-      return new Promise<false | { el: string; behavior: 'smooth' }>((resolve) => {
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            if (scrollToTarget(to.hash)) resolve(false)
-            else resolve({ el: to.hash, behavior: 'smooth' })
-          })
-        })
-      })
+      // Handled in App.vue once the section animations have created their
+      // pin-spacers; scrolling here measures a pre-pin layout and lands short.
+      return false
     }
     return { top: 0 }
   },
