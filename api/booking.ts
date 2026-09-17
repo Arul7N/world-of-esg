@@ -9,7 +9,7 @@
  *   RESEND_API_KEY   an API key from https://resend.com  (free tier is enough)
  *
  * Optional overrides:
- *   BOOKING_TO_EMAIL    destination inbox        (default hello@worldofesg.in)
+ *   BOOKING_TO_EMAIL    destination inbox        (default office@worldofesg.in)
  *   BOOKING_FROM_EMAIL  verified sender address  (default onboarding@resend.dev)
  *
  * Until RESEND_API_KEY is set this returns 503 with { code: 'not_configured' },
@@ -17,7 +17,7 @@
  * visitor's request is never silently lost.
  */
 
-const TO_EMAIL = process.env.BOOKING_TO_EMAIL || 'hello@worldofesg.in'
+const TO_EMAIL = process.env.BOOKING_TO_EMAIL || 'office@worldofesg.in'
 // Resend's shared sandbox sender works without domain verification, but only
 // delivers to the account owner's address. Verify worldofesg.in in Resend and
 // set BOOKING_FROM_EMAIL to something like bookings@worldofesg.in for real use.

@@ -3,6 +3,7 @@ import HomePage from '@/pages/HomePage.vue'
 import AboutPage from '@/pages/AboutPage.vue'
 import CareerPage from '@/pages/CareerPage.vue'
 import TeamPage from '@/pages/TeamPage.vue'
+import WhatDrivesUsPage from '@/pages/WhatDrivesUsPage.vue'
 import PrivacyPolicy from '@/pages/PrivacyPolicy.vue'
 import CookiePolicy from '@/pages/CookiePolicy.vue'
 import TermsConditions from '@/pages/TermsConditions.vue'
@@ -39,6 +40,16 @@ const router = createRouter({
         title: 'Our Team — World of ESG',
         description:
           'Meet the World of ESG team: ESG strategy, climate science, technology, research and learning design.',
+      },
+    },
+    {
+      path: '/what-drives-us',
+      name: 'what-drives-us',
+      component: WhatDrivesUsPage,
+      meta: {
+        title: 'What Drives Us — World of ESG',
+        description:
+          'Carbon regulation is reshaping business: CCTS, EU CBAM, decarbonization and turning compliance into competitive advantage.',
       },
     },
     {

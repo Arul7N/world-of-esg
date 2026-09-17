@@ -58,7 +58,7 @@
           climate outcomes.
         </p>
         <a
-          href="mailto:hello@worldofesg.in?subject=Partnership%20Enquiry"
+          href="mailto:office@worldofesg.in?subject=Partnership%20Enquiry"
           class="mag inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-aurora text-charcoal font-display font-semibold hover:-translate-y-1 transition-transform duration-300"
         >
           <svg class="icon" style="width: 1.05em; height: 1.05em"><use href="#i-mail" /></svg>

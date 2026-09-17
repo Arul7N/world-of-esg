@@ -90,7 +90,7 @@
           <h2>9. Contact Us</h2>
           <p>
             For questions about our cookie practices, contact us at:<br />
-            Email: <a href="mailto:hello@worldofesg.in">hello@worldofesg.in</a><br />
+            Email: <a href="mailto:office@worldofesg.in">office@worldofesg.in</a><br />
             Phone: <a href="tel:+918660510402">+91 86605 10402</a>
           </p>
         </div>

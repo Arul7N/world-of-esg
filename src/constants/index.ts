@@ -16,18 +16,23 @@ export const APP_VERSION = '1.2.0'
  * jobs, so a role opening or closing never requires a code change or redeploy.
  */
 export const LINKEDIN_URL = 'https://www.linkedin.com/company/world-of-esg'
+// TODO: paste the real page URLs. Left empty deliberately — the footer only
+// renders an icon when its URL is set, so nothing links to a wrong account.
+export const FACEBOOK_URL = ''
+export const INSTAGRAM_URL = ''
 export const LINKEDIN_JOBS_URL = `${LINKEDIN_URL}/jobs/`
 export const CAREERS_EMAIL = 'careers@worldofesg.in'
-export const CONTACT_EMAIL = 'hello@worldofesg.in'
+export const CONTACT_EMAIL = 'office@worldofesg.in'
 
 export const NAV_ITEMS: NavItem[] = [
+  { name: 'Home', href: '/' },
   {
     name: 'About',
     href: '/about',
     children: [
       { name: 'About Us', href: '/about' },
       { name: 'Meet the Team', href: '/team' },
-      { name: 'What Drives Us', href: '/#challenge' },
+      { name: 'What Drives Us', href: '/what-drives-us' },
     ],
   },
   { name: 'Services', href: '#solutions' },

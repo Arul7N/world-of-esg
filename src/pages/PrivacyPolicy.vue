@@ -129,7 +129,7 @@
           <h2>11. Contact Us</h2>
           <p>
             If you have questions about this Privacy Policy, please contact us at:<br />
-            Email: <a href="mailto:hello@worldofesg.in">hello@worldofesg.in</a><br />
+            Email: <a href="mailto:office@worldofesg.in">office@worldofesg.in</a><br />
             Phone: <a href="tel:+918660510402">+91 86605 10402</a>
           </p>
         </div>

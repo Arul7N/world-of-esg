@@ -108,6 +108,26 @@
       </symbol>
 
       <!-- Social Icons -->
+      <symbol id="i-facebook" viewBox="0 0 24 24">
+        <path
+          d="M14 9h3V6h-3c-1.9 0-3 1.4-3 3.2V11H9v3h2v8h3v-8h2.6l.4-3H14V9.6c0-.4.3-.6.6-.6H14z"
+        />
+      </symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24">
+        <rect
+          x="3"
+          y="3"
+          width="18"
+          height="18"
+          rx="5"
+          ry="5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        />
+        <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2" />
+        <circle cx="17.2" cy="6.8" r="1.2" />
+      </symbol>
       <symbol id="i-linkedin" viewBox="0 0 24 24">
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
         <rect x="2" y="9" width="4" height="12" />

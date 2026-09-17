@@ -17,19 +17,23 @@
           <p class="footer-strap">
             Enabling organizations to drive sustainable change with data, strategy, and technology.
           </p>
-          <div class="mt-14">
+          <div class="footer-follow">
             <h3 class="footer-heading">Follow Us On</h3>
-            <a
-              :href="LINKEDIN_URL"
-              target="_blank"
-              rel="noopener"
-              class="footer-linkedin"
-              aria-label="Follow World of ESG on LinkedIn"
-            >
-              <svg class="icon icon-fill" style="width: 1.55rem; height: 1.55rem">
-                <use href="#i-linkedin" />
-              </svg>
-            </a>
+            <div class="footer-socials">
+              <a
+                v-for="social in SOCIALS"
+                :key="social.name"
+                :href="social.url"
+                target="_blank"
+                rel="noopener"
+                class="footer-social"
+                :aria-label="`Follow World of ESG on ${social.name}`"
+              >
+                <svg class="icon icon-fill" style="width: 1.35rem; height: 1.35rem">
+                  <use :href="`#i-${social.icon}`" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -37,9 +41,13 @@
           <h3 class="footer-heading footer-heading-rule">Company</h3>
           <nav aria-label="Company links">
             <ul class="footer-list">
+              <li><router-link to="/">Home</router-link></li>
               <li><router-link to="/about">About</router-link></li>
               <li><a href="#solutions" @click="handleNavClick">Services</a></li>
-              <li><a href="#impact" @click="handleNavClick">Impact</a></li>
+              <li><a href="#industries" @click="handleNavClick">Industries</a></li>
+              <li><a href="#frameworks" @click="handleNavClick">Frameworks</a></li>
+              <li><a href="#partners" @click="handleNavClick">Partners</a></li>
+              <li><router-link to="/career">Career</router-link></li>
             </ul>
           </nav>
         </div>
@@ -63,8 +71,9 @@
           <address class="not-italic">
             <ul class="footer-contact-list">
               <li>
-                <a href="mailto:hello@worldofesg.in"
-                  ><svg class="icon"><use href="#i-mail" /></svg><span>hello@worldofesg.in</span></a
+                <a href="mailto:office@worldofesg.in"
+                  ><svg class="icon"><use href="#i-mail" /></svg
+                  ><span>office@worldofesg.in</span></a
                 >
               </li>
               <li>
@@ -75,19 +84,12 @@
               <li class="footer-address">
                 <svg class="icon"><use href="#i-globe" /></svg
                 ><span
-                  >#235, 13th Cross<br />Indiranagar<br />Bangalore - 560038<br />Karnataka</span
+                  >#235, 13th Cross, Indiranagar<br />Bangalore &ndash; 560038<br />Karnataka,
+                  India</span
                 >
               </li>
             </ul>
           </address>
-          <a
-            href="https://maps.google.com/?q=235+13th+Cross+Indiranagar+Bangalore+560038"
-            target="_blank"
-            rel="noopener"
-            class="footer-map-link"
-          >
-            <svg class="icon"><use href="#i-arrow-ur" /></svg><span>View on Map</span>
-          </a>
         </div>
       </div>
 
@@ -106,7 +108,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { scrollToTarget } from '@/composables/useSmoothScroll'
-import { LINKEDIN_URL } from '@/constants'
+import { computed } from 'vue'
+import { LINKEDIN_URL, FACEBOOK_URL, INSTAGRAM_URL } from '@/constants'
 const router = useRouter()
 
 const handleNavClick = async (event: Event) => {
@@ -127,6 +130,16 @@ const handleNavClick = async (event: Event) => {
     console.warn('History pushState failed:', error)
   }
 }
+
+/* Only render a social icon once its URL is filled in, so an unset account
+   never ships as a broken or wrong link. */
+const SOCIALS = computed(() =>
+  [
+    { name: 'LinkedIn', icon: 'linkedin', url: LINKEDIN_URL },
+    { name: 'Facebook', icon: 'facebook', url: FACEBOOK_URL },
+    { name: 'Instagram', icon: 'instagram', url: INSTAGRAM_URL },
+  ].filter((s) => s.url)
+)
 
 const year = new Date().getFullYear()
 </script>
@@ -196,12 +209,23 @@ const year = new Date().getFullYear()
   display: inline-block;
   transform: translateX(4px);
 }
-.footer-linkedin {
-  width: 4.5rem;
-  height: 4.5rem;
+.footer-follow {
+  /* Straight under the strapline rather than the old 3.5rem gap. */
+  margin-top: 2rem;
+}
+
+.footer-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.footer-social {
+  width: 3rem;
+  height: 3rem;
   display: grid;
   place-items: center;
-  margin-top: 1.25rem;
   border: 1px solid rgba(91, 227, 139, 0.8);
   border-radius: 0.65rem;
   color: #fff;
@@ -210,7 +234,7 @@ const year = new Date().getFullYear()
     background 0.22s ease,
     transform 0.22s ease;
 }
-.footer-linkedin:hover {
+.footer-social:hover {
   color: var(--deep);
   background: var(--aurora);
   transform: translateY(-3px);
@@ -224,33 +248,23 @@ const year = new Date().getFullYear()
   line-height: 1.7;
 }
 .footer-contact-list a,
-.footer-address,
-.footer-map-link {
+.footer-address {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
 }
-.footer-contact-list .icon,
-.footer-map-link .icon {
+/* Sizing belongs to the icon alone — when this selector list also caught the
+   row and the address, they inherited width:1.55rem and every word wrapped. */
+.footer-contact-list .icon {
   flex: 0 0 auto;
   width: 1.55rem !important;
   height: 1.55rem !important;
   margin-top: 0.22rem;
   color: var(--aurora);
 }
-.footer-map-link {
-  width: max-content;
-  margin-top: 2.3rem;
-  color: var(--aurora);
-  font-size: 1.05rem;
-  text-decoration: none;
-  transition:
-    color 0.22s ease,
-    transform 0.22s ease;
-}
-.footer-map-link:hover {
-  color: #fff;
-  transform: translateX(4px);
+/* Let the text block shrink properly instead of forcing min-content wrapping. */
+.footer-address span {
+  min-width: 0;
 }
 .footer-bottom {
   display: flex;

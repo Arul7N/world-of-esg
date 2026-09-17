@@ -1,7 +1,7 @@
 <template>
   <section id="challenge" class="relative py-20 md:py-28 bg-mist overflow-hidden">
     <div class="max-w-[1380px] mx-auto px-6 md:px-10">
-      <div class="max-w-3xl mb-12">
+      <div v-if="showIntro" class="max-w-3xl mb-12">
         <span class="eyebrow mb-6" data-reveal>What Drives Us</span>
         <h2
           class="font-display font-bold text-charcoal text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.04] mb-5"
@@ -36,6 +36,12 @@
 </template>
 
 <script setup lang="ts">
+/*
+ * The dedicated /what-drives-us page states the same heading in its hero, so it
+ * renders this section with showIntro=false rather than repeating it.
+ */
+withDefaults(defineProps<{ showIntro?: boolean }>(), { showIntro: true })
+
 interface Driver {
   title: string
   description: string

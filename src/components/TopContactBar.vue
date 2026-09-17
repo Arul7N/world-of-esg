@@ -6,9 +6,9 @@
           <svg class="icon" style="width: 1em; height: 1em"><use href="#i-phone" /></svg>
           <span>+91 86605 10402</span>
         </a>
-        <a href="mailto:hello@worldofesg.in" class="top-contact-link">
+        <a href="mailto:office@worldofesg.in" class="top-contact-link">
           <svg class="icon" style="width: 1em; height: 1em"><use href="#i-mail" /></svg>
-          <span>hello@worldofesg.in</span>
+          <span>office@worldofesg.in</span>
         </a>
       </div>
     </div>

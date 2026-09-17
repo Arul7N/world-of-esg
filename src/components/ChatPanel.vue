@@ -41,7 +41,7 @@
           <a class="bchip" href="https://wa.me/918660510402" target="_blank" rel="noopener"
             >WhatsApp us</a
           >
-          <a class="bchip" href="mailto:hello@worldofesg.in">Email us</a>
+          <a class="bchip" href="mailto:office@worldofesg.in">Email us</a>
         </div>
       </div>
 
@@ -111,7 +111,7 @@ async function sendMessage() {
   const key = Object.keys(autoReplies).find((k) => lower.includes(k))
   const reply = key
     ? autoReplies[key]
-    : 'Thanks for your message! Our team will get back to you shortly. You can also email us at hello@worldofesg.in or book a call above.'
+    : 'Thanks for your message! Our team will get back to you shortly. You can also email us at office@worldofesg.in or book a call above.'
 
   setTimeout(async () => {
     messages.value.push({ from: 'bot', text: reply })

@@ -21,19 +21,41 @@
 
     <section class="team-section py-20 md:py-28">
       <div class="max-w-[1380px] mx-auto px-6 md:px-10">
-        <div v-for="(row, r) in TEAM_ROWS" :key="`row-${r}`" class="team-row" data-reveal>
-          <article
-            v-for="member in row"
-            :key="member.name"
-            class="team-card"
-            :style="{ '--team-color': member.color }"
-          >
-            <div class="team-initials">{{ member.initials }}</div>
-            <div class="team-meta">
-              <h2 class="font-display font-bold text-xl text-white">{{ member.name }}</h2>
-              <p class="mt-1 text-sm leading-relaxed text-white/70">{{ member.role }}</p>
+        <!-- Advisors -->
+        <h2 class="group-title" data-reveal>Our Advisors</h2>
+        <div class="people-grid people-grid-3" data-reveal>
+          <article v-for="(person, i) in ADVISORS" :key="`advisor-${i}`" class="person">
+            <div class="person-photo">
+              <img v-if="person.photo" :src="person.photo" :alt="person.name" />
+              <svg v-else class="person-placeholder" aria-hidden="true">
+                <use href="#i-users" />
+              </svg>
             </div>
+            <p class="person-name">{{ person.name || 'Name' }}</p>
+            <p class="person-role">{{ person.designation || 'Designation' }}</p>
           </article>
+        </div>
+
+        <!-- Team -->
+        <h2 class="group-title group-title-spaced" data-reveal>Our Team</h2>
+        <div class="people-grid people-grid-4" data-reveal>
+          <article v-for="(person, i) in TEAM" :key="`team-${i}`" class="person">
+            <div class="person-photo">
+              <img v-if="person.photo" :src="person.photo" :alt="person.name" />
+              <svg v-else class="person-placeholder" aria-hidden="true">
+                <use href="#i-users" />
+              </svg>
+            </div>
+            <p class="person-name">{{ person.name || 'Name' }}</p>
+            <p class="person-role">{{ person.designation || 'Designation' }}</p>
+          </article>
+        </div>
+
+        <!-- Upcoming -->
+        <div class="upcoming" data-reveal>
+          <span class="upcoming-rule" aria-hidden="true"></span>
+          <span class="upcoming-label">Upcoming</span>
+          <span class="upcoming-rule" aria-hidden="true"></span>
         </div>
       </div>
     </section>
@@ -45,45 +67,34 @@
 <script setup lang="ts">
 import FooterSection from '@/sections/FooterSection.vue'
 
-interface Member {
+interface Person {
   name: string
-  role: string
-  initials: string
-  color: string
+  designation: string
+  /** Path under /public, e.g. '/images/team/jane.jpg'. Empty shows the placeholder. */
+  photo: string
 }
 
 /*
- * Placeholder names — swap for the real team before this goes to clients.
- * Kept deliberately neutral rather than resembling anyone identifiable.
+ * Empty slots on purpose — the layout is in place and the copy is not.
+ * Fill `name`, `designation` and `photo` per person as they are confirmed;
+ * a blank name falls back to the "Name" / "Designation" placeholder label.
+ * Adding or removing an entry changes the grid automatically.
  */
-const TEAM_ROWS: Member[][] = [
-  [
-    { name: 'Alex Harper', role: 'Founder & CEO', initials: 'AH', color: '#1D6B43' },
-    { name: 'Dana Whitfield', role: 'Head of ESG Strategy', initials: 'DW', color: '#3A4DB8' },
-    { name: 'Marcus Ellery', role: 'Chief Technology Officer', initials: 'ME', color: '#7430A4' },
-    {
-      name: 'Nora Kingsley',
-      role: 'Head of Capability Building',
-      initials: 'NK',
-      color: '#117C50',
-    },
-  ],
-  [
-    { name: 'Julian Rhodes', role: 'Head of Decarbonization', initials: 'JR', color: '#0FA37F' },
-    { name: 'Elena Voss', role: 'Director of ESG Research', initials: 'EV', color: '#2FA66A' },
-    { name: 'Theo Marchetti', role: 'Head of Environmental Law', initials: 'TM', color: '#3447B8' },
-    { name: 'Sasha Lindqvist', role: 'Head of Client Delivery', initials: 'SL', color: '#55309A' },
-  ],
-]
+const blank = (): Person => ({ name: '', designation: '', photo: '' })
+
+const ADVISORS: Person[] = Array.from({ length: 3 }, blank)
+const TEAM: Person[] = Array.from({ length: 8 }, blank)
 </script>
 
 <style scoped>
 .team-page {
   background: var(--mist);
 }
+
 .team-hero {
   background: linear-gradient(145deg, #f8f6f0 0%, #e8f4eb 70%, #e8f0fb 100%);
 }
+
 .team-orb {
   position: absolute;
   width: 26rem;
@@ -95,55 +106,117 @@ const TEAM_ROWS: Member[][] = [
   filter: blur(20px);
   pointer-events: none;
 }
+
 .team-section {
   background: linear-gradient(180deg, #f2f6f2, #f8f6f0);
 }
-.team-row {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
+
+/* Underlined group heading, matching the sketch. */
+.group-title {
+  display: inline-block;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--forest);
+  color: var(--charcoal);
+  font:
+    700 clamp(1.35rem, 2.6vw, 1.9rem) 'Inter Tight',
+    sans-serif;
+  letter-spacing: -0.02em;
 }
 
-.team-row + .team-row {
-  margin-top: 1.25rem;
+.group-title-spaced {
+  margin-top: 4.5rem;
+}
+
+.people-grid {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  margin-top: 2.25rem;
+}
+
+.people-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.people-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 @media (max-width: 900px) {
-  .team-row {
+  .people-grid-3,
+  .people-grid-4 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 520px) {
-  .team-row {
+  .people-grid-3,
+  .people-grid-4 {
     grid-template-columns: 1fr;
   }
 }
 
-.team-meta {
-  padding: 0 1.5rem 1.5rem;
-}
-
-.team-card {
-  overflow: hidden;
-  border-radius: 1.45rem;
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--team-color) 78%, #06151a),
-    var(--team-color)
-  );
-  box-shadow: 0 22px 42px -30px rgba(8, 20, 27, 0.65);
-}
-.team-initials {
+.person-photo {
   display: grid;
   place-items: center;
-  height: 9.5rem;
-  color: rgba(255, 255, 255, 0.94);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid var(--stone);
+  border-radius: 1rem;
+  background: linear-gradient(160deg, #ffffff, #eef4ef);
+  box-shadow: 0 16px 34px -28px rgba(8, 20, 27, 0.55);
+}
+
+.person-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person-placeholder {
+  width: 28%;
+  height: 28%;
+  fill: none;
+  stroke: var(--sage);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.person-name {
+  margin-top: 1rem;
+  color: var(--charcoal);
   font:
-    3.8rem 'Instrument Serif',
-    serif;
-  background:
-    radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.24), transparent 40%),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 11px);
+    700 1.05rem 'Inter Tight',
+    sans-serif;
+}
+
+.person-role {
+  margin-top: 0.15rem;
+  color: var(--graphite);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.upcoming {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 5rem;
+}
+
+.upcoming-rule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--stone), transparent);
+}
+
+.upcoming-label {
+  color: var(--forest);
+  font:
+    600 0.8rem 'Inter Tight',
+    sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 </style>

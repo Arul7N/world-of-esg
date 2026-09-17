@@ -125,7 +125,7 @@
           <h2>13. Contact Information</h2>
           <p>
             If you have any questions about these Terms & Conditions, please contact us at:<br />
-            Email: <a href="mailto:hello@worldofesg.in">hello@worldofesg.in</a><br />
+            Email: <a href="mailto:office@worldofesg.in">office@worldofesg.in</a><br />
             Phone: <a href="tel:+918660510402">+91 86605 10402</a><br />
             Address: #235, 13th Cross, Indiranagar, Bangalore - 560038, Karnataka
           </p>
