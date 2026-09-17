@@ -32,7 +32,7 @@
               </svg>
             </div>
             <p class="person-name">{{ person.name || 'Name' }}</p>
-            <p class="person-role">{{ person.designation || 'Designation' }}</p>
+            <p class="person-role">{{ person.role || 'Role' }}</p>
           </article>
         </div>
 
@@ -47,7 +47,7 @@
               </svg>
             </div>
             <p class="person-name">{{ person.name || 'Name' }}</p>
-            <p class="person-role">{{ person.designation || 'Designation' }}</p>
+            <p class="person-role">{{ person.role || 'Role' }}</p>
           </article>
         </div>
 
@@ -69,18 +69,18 @@ import FooterSection from '@/sections/FooterSection.vue'
 
 interface Person {
   name: string
-  designation: string
+  role: string
   /** Path under /public, e.g. '/images/team/jane.jpg'. Empty shows the placeholder. */
   photo: string
 }
 
 /*
  * Empty slots on purpose — the layout is in place and the copy is not.
- * Fill `name`, `designation` and `photo` per person as they are confirmed;
- * a blank name falls back to the "Name" / "Designation" placeholder label.
+ * Fill `name`, `role` and `photo` per person as they are confirmed;
+ * a blank name falls back to the "Name" / "Role" placeholder label.
  * Adding or removing an entry changes the grid automatically.
  */
-const blank = (): Person => ({ name: '', designation: '', photo: '' })
+const blank = (): Person => ({ name: '', role: '', photo: '' })
 
 const ADVISORS: Person[] = Array.from({ length: 3 }, blank)
 const TEAM: Person[] = Array.from({ length: 8 }, blank)

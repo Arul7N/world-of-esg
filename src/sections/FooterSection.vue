@@ -210,15 +210,23 @@ const year = new Date().getFullYear()
   transform: translateX(4px);
 }
 .footer-follow {
-  /* Straight under the strapline rather than the old 3.5rem gap. */
-  margin-top: 2rem;
+  /* Directly under the strapline and left-aligned with it, rather than
+     hanging back under the logo. */
+  margin-top: 1.1rem;
+  margin-left: 4.5rem;
+}
+
+@media (max-width: 640px) {
+  .footer-follow {
+    margin-left: 0;
+  }
 }
 
 .footer-socials {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1rem;
+  margin-top: 0.85rem;
 }
 
 .footer-social {

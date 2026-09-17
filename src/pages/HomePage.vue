@@ -4,7 +4,6 @@
     <MarqueeSection />
     <ManifestoSection />
     <VisionMissionSection />
-    <ChallengeSection />
     <SolutionsSection />
     <WhyUsSection />
     <ProcessSection />
@@ -22,7 +21,6 @@ import HeroSection from '@/sections/HeroSection.vue'
 import MarqueeSection from '@/sections/MarqueeSection.vue'
 import VisionMissionSection from '@/sections/VisionMissionSection.vue'
 import ManifestoSection from '@/sections/ManifestoSection.vue'
-import ChallengeSection from '@/sections/ChallengeSection.vue'
 import SolutionsSection from '@/sections/SolutionsSection.vue'
 import ProcessSection from '@/sections/ProcessSection.vue'
 import IndustriesSection from '@/sections/IndustriesSection.vue'

@@ -9,27 +9,12 @@
         ref="trackRef"
         class="marq-track font-display font-semibold text-[clamp(1.1rem,2.4vw,1.9rem)] tracking-tight"
       >
-        <span class="marq-inner">
-          CBAM<i class="marq-dot"></i>BRSR<i class="marq-dot"></i>GRI<i class="marq-dot"></i>TCFD<i
-            class="marq-dot"
-          ></i
-          >EU&nbsp;CSRD<i class="marq-dot"></i>SBTi<i class="marq-dot"></i>EPR<i
-            class="marq-dot"
-          ></i
-          >SWM<i class="marq-dot"></i>Scope&nbsp;3<i class="marq-dot"></i>Net&nbsp;Zero<i
-            class="marq-dot"
-          ></i>
-        </span>
-        <span class="marq-inner" aria-hidden="true">
-          CBAM<i class="marq-dot"></i>BRSR<i class="marq-dot"></i>GRI<i class="marq-dot"></i>TCFD<i
-            class="marq-dot"
-          ></i
-          >EU&nbsp;CSRD<i class="marq-dot"></i>SBTi<i class="marq-dot"></i>EPR<i
-            class="marq-dot"
-          ></i
-          >SWM<i class="marq-dot"></i>Scope&nbsp;3<i class="marq-dot"></i>Net&nbsp;Zero<i
-            class="marq-dot"
-          ></i>
+        <!-- Two identical runs: the second lets the scroll loop seamlessly. -->
+        <span v-for="run in 2" :key="run" class="marq-inner" :aria-hidden="run === 2 || undefined">
+          <template v-for="term in TERMS" :key="`${run}-${term}`">
+            <span class="marq-term">{{ term }}</span>
+            <i class="marq-dot"></i>
+          </template>
         </span>
       </div>
     </div>
@@ -38,6 +23,29 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+
+/*
+ * Single source for the ticker — it renders twice so the scroll can loop
+ * seamlessly, and editing this list keeps both runs in sync automatically.
+ */
+const TERMS = [
+  'CBAM',
+  'CCTS',
+  'BRSR',
+  'GRI',
+  'TCFD',
+  'ISSB',
+  'EU CSRD',
+  'SBTi',
+  'EPR',
+  'GHG Accounting',
+  'Scope 3',
+  'Net Zero',
+  'PCF',
+  'LCA',
+  'DPP',
+  'Carbon Credits',
+]
 
 const trackRef = ref<HTMLElement | null>(null)
 let raf = 0
@@ -83,6 +91,10 @@ onUnmounted(() => cancelAnimationFrame(raf))
   padding: 0 1.8rem;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+.marq-term {
+  white-space: nowrap;
 }
 
 .marq-dot {
