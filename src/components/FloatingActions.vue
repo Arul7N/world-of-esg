@@ -39,7 +39,7 @@
 
     <a
       class="fab fab-wa"
-      href="https://wa.me/918660510402"
+      href="https://wa.me/918123019616"
       target="_blank"
       rel="noopener"
       aria-label="Chat on WhatsApp"

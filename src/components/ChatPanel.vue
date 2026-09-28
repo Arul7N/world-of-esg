@@ -38,7 +38,7 @@
         </div>
         <div class="chat-quick" v-if="messages.length === 0">
           <button type="button" class="bchip" @click="bookAndClose">Book a call</button>
-          <a class="bchip" href="https://wa.me/918660510402" target="_blank" rel="noopener"
+          <a class="bchip" href="https://wa.me/918123019616" target="_blank" rel="noopener"
             >WhatsApp us</a
           >
           <a class="bchip" href="mailto:office@worldofesg.in">Email us</a>

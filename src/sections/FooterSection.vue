@@ -85,8 +85,8 @@
                 >
               </li>
               <li>
-                <a href="tel:+918660510402"
-                  ><svg class="icon"><use href="#i-phone" /></svg><span>+91 86605 10402</span></a
+                <a href="tel:+918123019616"
+                  ><svg class="icon"><use href="#i-phone" /></svg><span>+91 81230 19616</span></a
                 >
               </li>
               <li class="footer-address">

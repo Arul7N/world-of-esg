@@ -2,9 +2,9 @@
   <aside class="top-contact-bar" aria-label="Contact information">
     <div class="top-contact-inner max-w-[1380px] mx-auto px-6 md:px-10">
       <div class="top-contact-links">
-        <a href="tel:+918660510402" class="top-contact-link">
+        <a href="tel:+918123019616" class="top-contact-link">
           <svg class="icon" style="width: 1em; height: 1em"><use href="#i-phone" /></svg>
-          <span>+91 86605 10402</span>
+          <span>+91 81230 19616</span>
         </a>
         <a href="mailto:office@worldofesg.in" class="top-contact-link">
           <svg class="icon" style="width: 1em; height: 1em"><use href="#i-mail" /></svg>
